@@ -22,3 +22,8 @@ li a {
 li a:hover {
 	background-color: #554455;
 }
+
+tr {
+	text-align: center;
+	height: 50px;
+}

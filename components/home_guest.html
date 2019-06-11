@@ -1,5 +1,6 @@
+
 <div style="margin: 30px; display: flex; flex-direction: column; align-items: center">
-	<table>
+	<table style="width: 60%">
 		<tr>
 			<td>Please Login</td>
 			<td>Please Register</td>
@@ -10,6 +11,33 @@
 			</td>
 			<td>
 				<button>Register</button>
+			</td>
+		</tr>
+	</table>
+
+	<br>
+	<br>
+	<br>
+
+	<table>
+		<tr>
+			<td id="poi0" style="border:2px black solid">
+				<div>
+					<p>{{pois[0].name}}</p><br>
+					<img src={{pois[0].picture}} width="400" height="250">
+				</div>
+			</td>
+			<td id="poi1" style="border:2px black solid">
+				<div>
+					<p>{{pois[1].name}}</p><br>
+					<img src={{pois[1].picture}} width="400" height="250">
+				</div>
+			</td>
+			<td id="poi2" style="border:2px black solid">
+				<div>
+					<p>{{pois[2].name}}</p><br>
+					<img src={{pois[2].picture}} width="400" height="250">
+				</div>
 			</td>
 		</tr>
 	</table>
