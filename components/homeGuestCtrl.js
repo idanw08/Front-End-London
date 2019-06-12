@@ -1,12 +1,18 @@
 
 angular.module('london_app')
-	.controller('homeGuestCtrl', function ($scope, $http) {
+	.controller('homeGuestController', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
+		let self = this;
+
+		self.goto = function (page) {
+			$location.path(page);
+		};
+
 		$http.get('http://localhost:3000/guest/randExplorePOIs/0')
 			.then((response) => {
 				const ans = response.data;
-				$scope.pois = [];
+				self.pois = [];
 				for (let i = 0; i < 3; i++) {
-					$scope.pois.push({
+					self.pois.push({
 						name: ans[i].name,
 						picture: ans[i].picture,
 						numViews: ans[i].numViews,
@@ -14,7 +20,7 @@ angular.module('london_app')
 						poiRank: ans[i].poiRank,
 						category: ans[i].category,
 						reviews: ans[i].reviews
-					})					
+					})
 				}
 			});
-	});
+	}]);

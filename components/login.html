@@ -1,0 +1,22 @@
+<div style="display: flex; flex-direction: column; align-items: center; margin:80px">
+
+		<form name="loginForm" ng-submit="loginCtrl.sumbitLogin(loginForm.$valid)" novalidate>
+		<div class="form-group">
+			<label>Username:</label>
+			<input type="text" name="username" ng-model="loginCtrl.user.username" ng-minlength='3' ng-maxlength='8' ng-pattern="/^[a-zA-Z]*$/" required>
+			<p ng-show="(loginForm.username.$dirty || submitted) && loginForm.username.$error.required">Enter Username.</p>
+			<p ng-show="loginForm.username.$error.pattern || loginForm.username.$error.minlength || loginForm.username.$error.maxlength">valid username is 3-8 alphabetical characters.</p>
+		</div>
+		<br>
+		<div class="form-group">
+			<label>Password:</label>
+			<input type="password" name="password" ng-model="loginCtrl.user.password" ng-minlength='5' ng-maxlength='10' ng-pattern="/^[0-9a-zA-Z]*$/" required>
+			<p ng-show="(loginForm.password.$dirty || submitted) && loginForm.password.$error.required">Enter Password.</p>
+			<p ng-show="loginForm.password.$error.pattern || loginForm.password.$error.minlength || loginForm.password.$error.maxlength">valid password is 5-10 alphanumeric characters.</p>
+		</div>
+
+		<br><br>
+		<button type="submit" ng-disabled="loginForm.$invalid">Login</button>
+	</form>
+	<button ng-click="goto('/passwordRecovery')">forgot password?</button>
+</div>

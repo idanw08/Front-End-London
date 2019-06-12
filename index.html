@@ -9,20 +9,27 @@
 	<title>London</title>
 </head>
 
-<body ng-app="london_app">
+<body>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
 	<script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
-	<script src="london_app.js"></script>
+	<script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+	<script src="app.js"></script>
 	<script src="components/homeGuestCtrl.js"></script>
+	<script src="components/loginCtrl.js"></script>
+	<script src="indexController.js"></script>
+	<script src="Services/tokenStorage.js"></script>
 
-	<ul>
-		<li><a href="/">Home</a></li>
-		<li><a href="#!/about">About</a></li>
-		<li><a href="#!/poi">POI</a></li>
-		<li style="float: right;"><label>hello guest</label></li>
-	</ul>
+	<div ng-controller="indexController as idxCtrl">
+		<ul>
+			<li><a href="#/">Home</a></li>
+			<li><a href="#/about">About</a></li>
+			<li><a href="#/poi">POI</a></li>
+			<li><a href="#/login">Login</a></li>
+			<li style="float: right"><a>{{$root.loggedUser}}</a></li>
+		</ul>
 
-	<div ng-view></div>
+		<div ng-view></div>
+	</div>
 </body>
 
 </html>
