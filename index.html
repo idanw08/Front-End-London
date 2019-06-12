@@ -16,15 +16,16 @@
 	<script src="app.js"></script>
 	<script src="components/homeGuestCtrl.js"></script>
 	<script src="components/loginCtrl.js"></script>
+	<script src="components/registerController.js"></script>
 	<script src="indexController.js"></script>
 	<script src="Services/tokenStorage.js"></script>
 
 	<div ng-controller="indexController as idxCtrl">
 		<ul>
-			<li><a href="#/">Home</a></li>
-			<li><a href="#/about">About</a></li>
-			<li><a href="#/poi">POI</a></li>
-			<li><a href="#/login">Login</a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/about">About</a></li>
+			<li><a href="/poi">POI</a></li>
+			<li><a href="/login">Login</a></li>
 			<li style="float: right"><a>{{$root.loggedUser}}</a></li>
 		</ul>
 

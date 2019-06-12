@@ -1,0 +1,68 @@
+<div>
+	<form name='regForm' ng-submit='registerCtrl.submitRegister(regForm.$valid)' novalidate>
+		
+		<label>Username:</label>
+		<input type="text" name="username" ng-model="registerCtrl.user.username" ng-minlength='3' ng-maxlength='8'ng-pattern="/^[a-zA-Z]*$/" required>
+		<span ng-show="(regForm.username.$dirty || submitted) && regForm.username.$error.required">Enter username.</span>
+		<span ng-show="regForm.username.$error.maxlength || regForm.username.$error.minlength || regForm.username.$error.pattern">Enter 3-8 alphabetical characters.</span>
+		<!-- TODO: maybe change the logical expression to if { submitted && (maxlength || required) } so that the span will apear when submit pressed -->
+		<br>
+		
+		<label>Password:</label>
+		<input type="password" name="password" ng-model="registerCtrl.user.password" ng-minlength='5' ng-maxlength='10'ng-pattern="/^[0-9a-zA-Z]*$/" required>
+		<span ng-show="(regForm.password.$dirty || submitted) && regForm.password.$error.required">Enter password.</span>
+		<span ng-show="regForm.password.$error.maxlength || regForm.password.$error.minlength || regForm.password.$error.pattern">Enter 5-10 alphanumeric characters.</span>
+		<br>
+		
+		<label for="firstName">First Name:</label>
+		<input type="text" name="firstName" ng-model="registerCtrl.user.firstName" ng-patter="/^[a-zA-Z]*$/" required>
+		<span ng-show="submitted && (regForm.firstName.$error.required || regForm.firstName.$error.pattern)">Enter a valid first name.</span>
+		<br>
+		
+		<label for="lastName">Last Name:</label>
+		<input type="text" name="lastName" ng-model="registerCtrl.user.lastName" ng-patter="/^[a-zA-Z]*$/" required>
+		<span ng-show="submitted && (regForm.lastName.$error.required || regForm.lastName.$error.pattern)">Enter a valid last name.</span>
+		<br>
+		
+		<label for="city">City:</label>
+		<input type="text" name="city" ng-model="registerCtrl.user.city" ng-patter="/^[a-zA-Z]*$/" required>
+		<span ng-show="submitted && (regForm.city.$error.required || regForm.city.$error.pattern)">Enter a valid city name.</span>
+		<br>
+		
+		<label for="country">Country:</label>
+		<select id="countries" form="regForm" ng-init="registerCtrl.getCountries()"
+			ng-model="registerCtrl.user.country">
+			<option value="" disabled selected></option>
+		</select><br>
+		
+		<label for="email">Email:</label>
+		<input type="email" name="email" ng-model="registerCtrl.user.email" required>
+		<span ng-show="email.$valid">Enter valid email.</span>
+		<br><br>
+		
+		<label for="favourites">Select favourite categories (min 2):</label><br>
+		<input type="checkbox" name="favourites" value="Food" ng-click="registerCtrl.addFavourite('Food')">Food &nbsp;
+		<input type="checkbox" name="favourites" value="Culture" ng-click="registerCtrl.addFavourite('Culture')">Culture &nbsp;
+		<input type="checkbox" name="favourites" value="Shopping" ng-click="registerCtrl.addFavourite('Shopping')">Shopping &nbsp;
+		<input type="checkbox" name="favourites" value="Night Life" ng-click="registerCtrl.addFavourite('Night_Life')">Night Life
+		<span ng-show="regForm.verifyFavourites()">Select minimum 2 categories</span>
+		<br><br>
+		
+		<label for="momOriginLastName">momOriginLastName:</label>
+		<input type="text" name="momOriginLastName" ng-model="registerCtrl.user.momOriginLastName"><br>
+		
+		<label for="elementarySchoolName">elementarySchoolName:</label>
+		<input type="text" name="elementarySchoolName" ng-model="registerCtrl.user.elementarySchoolName"><br>
+		
+		<label for="favouriteColor">favouriteColor:</label>
+		<input type="text" name="favouriteColor" ng-model="registerCtrl.user.favouriteColor"><br>
+		
+		<label for="childhoodBFF">childhoodBFF:</label>
+		<input type="text" name="childhoodBFF" ng-model="registerCtrl.user.childhoodBFF"><br>
+		
+		<span ng-show="regForm.verifyQuestions()">Select minimum 2 categories</span>
+
+		<br>
+		<button type="submit" ng-disabled="regForm.$invalid">Register</button>
+	</form>
+</div>
