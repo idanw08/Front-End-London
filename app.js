@@ -18,6 +18,10 @@ app.config(['$routeProvider', function ($routeProvider) {
 			templateUrl: 'components/register.html',
 			controller: 'registerController as registerCtrl'
 		})
+		.when('/about', {
+			templateUrl: 'components/about.html',
+			controller: 'aboutController as aboutCtrl'
+		})
 		.otherwise({redirectTo: '/'});
 }]);
 
