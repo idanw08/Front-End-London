@@ -18,6 +18,10 @@ app.config(['$routeProvider', function ($routeProvider) {
 			templateUrl: 'components/register.html',
 			controller: 'registerController as registerCtrl'
 		})
+		.when('/homeUser', {
+			templateUrl: 'components/home_user.html',
+			controller: 'homeUserController as homeUserCtrl'
+		})
 		.otherwise({redirectTo: '/'});
 }]);
 

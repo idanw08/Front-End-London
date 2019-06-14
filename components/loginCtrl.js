@@ -17,7 +17,7 @@ angular.module('london_app')
 						}
 						tokenStorage.addUserToken(self.user.username, data.token) //saves the token in localstorage
 						$rootScope.loggedUser = self.user.username
-						//TODO: redirect the logged user to the page with the last 2 saves and 2 recommended
+						$location.path('/homeUser')
 					},
 						function (response) {
 							alert('Error.')

@@ -12,7 +12,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 		let countries = []
 		const doc = XHR.responseXML
 		const countriesTags = doc.getElementsByTagName("Countries")[0].getElementsByTagName("Country")
-		let tmp = Array.prototype.slice.call(countriesTags,0)
+		let tmp = Array.prototype.slice.call(countriesTags, 0)
 		for (let i = 0; i < tmp.length; i++) {
 			countries.push({
 				id: tmp[i].getElementsByTagName("ID")[0].textContent,

@@ -1,56 +1,29 @@
 angular.module('london_app')
-	.controller('registerController', ['$scope', '$rootScope', '$http', '$httpParamSerializerJQLike', function ($scope, $rootScope, $http, $httpParamSerializerJQLike) {
+	.controller('registerController', ['$scope', '$rootScope', '$http', '$httpParamSerializerJQLike', '$location', function ($scope, $rootScope, $http, $httpParamSerializerJQLike, $location) {
 		let self = this
 		self.favourites = [false, false, false, false]
 		self.countries = $rootScope.countries
 		self.country = countries[0]
 		self.cats = [
-			{ id: 0, name: 'Food', selected: false },
-			{ id: 1, name: 'Culture', selected: false },
-			{ id: 2, name: 'Shopping', selected: false },
-			{ id: 3, name: 'Night_Life', selected: false }
+			{ id: 0, name: 'Food' },
+			{ id: 1, name: 'Culture' },
+			{ id: 2, name: 'Shopping' },
+			{ id: 3, name: 'Night Life' }
 		]
-		self.favsCats = []
+		self.favsCats = [false, false, false, false]
+		self.numCatSelected = 0
 		self.momOriginLastName = ''
 		self.elementarySchoolName = ''
 		self.favouriteColor = ''
 		self.childhoodBFF = ''
 
-		self.submitRegister = function () {
-			let newUser = {
-				username: self.username,
-				password: self.password,
-				firstName: self.firstName,
-				lastName: self.lastName,
-				city: self.city,
-				country: self.country.name,
-				email: self.email,
-				favourites: '',
-				momOriginLastName: self.momOriginLastName,
-				elementarySchoolName: self.elementarySchoolName,
-				favouriteColor: self.favouriteColor,
-				childhoodBFF: self.childhoodBFF
-			}
-			if (self.favourites[0]) newUser.favourites = 'Food'
-			if (self.favourites[1]) newUser.favourites = ',Culture'
-			if (self.favourites[2]) newUser.favourites = ',Shopping'
-			if (self.favourites[3]) newUser.favourites = ',Night_Life'
-
-			console.log(newUser.country)
-			// $http.post('http://localhost:3000/auth/register', $httpParamSerializerJQLike), $rootScope.config)
-			// 	.then(function (response) {
-			// 		console.log(response.data)
-			// 	})
+		self.checkedCategory = function (id) {
+			self.favsCats[id] ? self.numCatSelected-- : self.numCatSelected++
+			self.favsCats[id] = !self.favsCats[id]
 		}
 
-		self.verifyFavourites = function () {
-			let favs = ""
-			let checked = 0
-			if (self.food) { favs + ', Food'; checked++ }
-			if (self.culture) { favs + ', Culture'; checked++ }
-			if (self.shopping) { favs + ',Shopping'; checked++ }
-			if (self.night_life) { favs + ', Night_Life'; checked++ }
-			return (checked > 1)
+		self.validateMin2Cats = function () {
+			return (self.numCatSelected > 1)
 		}
 
 		self.verifyQuestions = function () {
@@ -62,9 +35,76 @@ angular.module('london_app')
 			return (answered > 1)
 		}
 
-		self.checkedCategory = function (id) {
-			//favsCats[id] = favsCats[id] === 0 ? 1 :
+		self.submitRegister = function () {
+			if (self.numCatSelected < 2) {
+				alert('SELECT MIN 2 Categories!')
+				return
+			}
+			if (!self.verifyQuestions()) {
+				alert('ANSWER MIN 2 RECOVERY QUESTIONS!')
+				return
+			}
+			let stringyCats = ''
+			for (let i = 0; i < 4; i++) {
+				if (self.favsCats[i]) {
+					if (stringyCats === '') stringyCats = (i === 3) ? 'Night_Life' : `${self.cats[i].name}`
+					else stringyCats += (i === 3) ? ',Night_Life' : `,${self.cats[i].name}`
+				}
+			}
+			let newUser = {
+				username: self.username,
+				password: self.password,
+				firstName: self.firstName,
+				lastName: self.lastName,
+				city: self.city,
+				country: self.country.name,
+				email: self.email,
+				categories: stringyCats,
+				momOriginLastName: self.momOriginLastName,
+				elementarySchoolName: self.elementarySchoolName,
+				favouriteColor: self.favouriteColor,
+				childhoodBFF: self.childhoodBFF
+			}
+			//console.log(newUser)
+			$http.post('http://localhost:3000/auth/register', $httpParamSerializerJQLike(newUser), $rootScope.config)
+				.then(
+					function (response) {
+						if (response.data.ans) {
+							document.getElementById('regForm').reset();
+							document.getElementById('defaultOption').selected = true
+							self.favourites = [false, false, false, false]
+							self.numCatSelected = 0
+							self.momOriginLastName = ''
+							self.elementarySchoolName = ''
+							self.favouriteColor = ''
+							self.childhoodBFF = ''
+							$rootScope.loggedUser = newUser.username
+							$location.path('/homeUser')
+
+						} else {
+							alert('Username already exist.')
+						}
+					},
+					function (response) {
+						alert('Error!!.')
+					}
+				)
 		}
+
+
+		self.verifyFavourites = function () {
+			let favs = ""
+			let checked = 0
+			if (self.food) { favs + ', Food'; checked++ }
+			if (self.culture) { favs + ', Culture'; checked++ }
+			if (self.shopping) { favs + ',Shopping'; checked++ }
+			if (self.night_life) { favs + ', Night_Life'; checked++ }
+			return (checked > 1)
+		}
+
+
+
+
 
 		// if (fav === 'Food') {
 		// 	if (!self.favourites[0]) { self.favourites[0] = true }
@@ -83,7 +123,7 @@ angular.module('london_app')
 		// 	else self.favourites[3] = false
 		// }
 		//console.log(self.favourites)
-	}
+		// }
 
 		// self.getCountries = function () {
 		// 	const select = document.getElementById("countries")

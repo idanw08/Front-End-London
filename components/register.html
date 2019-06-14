@@ -1,22 +1,16 @@
 <div>
-	<form name='regForm' ng-submit='registerCtrl.submitRegister(regForm.$valid)' novalidate>
+	<form name='regForm' id='regForm' ng-submit='registerCtrl.submitRegister(regForm.$valid)' novalidate>
 		<!-- USERNAME -->
 		<label>Username:</label>
-		<input type="text" name="username" ng-model="registerCtrl.username" ng-minlength='3' ng-maxlength='8'
-			ng-pattern="/^[a-zA-Z]*$/" required>
+		<input type="text" name="username" ng-model="registerCtrl.username" ng-minlength='3' ng-maxlength='8' ng-pattern="/^[a-zA-Z]*$/" required>
 		<span ng-show="regForm.username.$dirty && regForm.username.$error.required">Enter username.</span>
-		<span
-			ng-show="regForm.username.$error.maxlength || regForm.username.$error.minlength || regForm.username.$error.pattern">Enter
-			3-8 alphabetical characters.</span>
+		<span ng-show="regForm.username.$error.maxlength || regForm.username.$error.minlength || regForm.username.$error.pattern">Enter 3-8 alphabetical characters.</span>
 		<br>
 		<!-- PASSWORD -->
 		<label>Password:</label>
-		<input type="password" name="password" ng-model="registerCtrl.password" ng-minlength='5' ng-maxlength='10'
-			ng-pattern="/^[0-9a-zA-Z]*$/" required>
+		<input type="password" name="password" ng-model="registerCtrl.password" ng-minlength='5' ng-maxlength='10' ng-pattern="/^[0-9a-zA-Z]*$/" required>
 		<span ng-show="regForm.password.$dirty && regForm.password.$error.required">Enter password.</span>
-		<span
-			ng-show="regForm.password.$error.maxlength || regForm.password.$error.minlength || regForm.password.$error.pattern">Enter
-			5-10 alphanumeric characters.</span>
+		<span ng-show="regForm.password.$error.maxlength || regForm.password.$error.minlength || regForm.password.$error.pattern">Enter 5-10 alphanumeric characters.</span>
 		<br>
 		<!-- FIRST NAME -->
 		<label for="firstName">First Name:</label>
@@ -37,31 +31,28 @@
 		<span ng-show="regForm.city.$error.pattern">only letters!</span>
 		<br>
 		<!-- COUNTRY -->
-		<label for="country">Country:</label>
-		<select id="countries" name="country" form="regForm" ng-model="registerCtrl.country"
-			ng-options="country as country.name for country in countries track by country.id" required>
-			<option value="" disabled selected></option>
+		<label for="countries">Country:</label>
+		<select id="countries" name="countries" form="regForm" ng-model="registerCtrl.country" 
+			ng-options="country as country.name for country in countries track by country.id" required autofocus>
+			<option id="defaultOption" value="" selected></option>
 		</select>
-		<span ng-show="regForm.$submitted && regForm.country.$error.required"></span>
+		<span ng-hide="regForm.countries.$error.required"></span>
 		<br>
 		<!-- EMAIL -->
 		<label for="email">Email:</label>
 		<input type="email" name="email" ng-model="registerCtrl.email" required>
-		<span ng-show="regForm.email.$error.email">Enter valid email.</span>
-		<span ng-show="regForm.email.$dirty && regForm.email.$error.required">Enter email!</span>
+		<span ng-show="regForm.email.$error.email">Enter a valid email address.</span>
+		<span ng-show="regForm.email.$dirty && regForm.email.$error.required">Enter email address!</span>
 		<br><br>
 		<!-- FAVOURITES -->
-		<!-- <label for="categories">Select favourite categories: &nbsp;</label>
-		<span ng-show="registerCtrl.verifyFavourites()">(select min 2)</span><br>
-		<input type="checkbox" name="categories" value="Food" ng-click="registerCtrl.addFavourite('Food')">Food &nbsp;
-		<input type="checkbox" name="categories" value="Culture" ng-click="registerCtrl.addFavourite('Culture')">Culture&nbsp;
-		<input type="checkbox" name="categories" value="Shopping" ng-click="registerCtrl.addFavourite('Shopping')">Shopping &nbsp;
-		<input type="checkbox" name="categories" value="Night Life" ng-click="registerCtrl.addFavourite('Night_Life')">Night Life -->
-
-		<label for="categories" ng-repeat="cat in registerCtrl.cats">
-			<input type="checkbox" name="categories" ng-click="registerCtrl.checkedCategory(cat.id)"
-				ng-checked="registerCtrl.favsCats.checkifSelected(cat.id)"> {{cat.name}}
+		<label for="categories"><u>Select favourite categories:</u></label>
+		<span ng-hide="registerCtrl.validateMin2Cats()">&nbsp;&nbsp; (Select at least 2 categories!)</span><br>
+		<label for="categories" ng-repeat="cat in registerCtrl.cats"><br>
+			<input type="checkbox" name="categories" ng-click="registerCtrl.checkedCategory(cat.id)"> {{cat.name}} 
 		</label>
+		<br><br>
+		<label><u>Password Recovery Questions:</u></label>
+		<span ng-hide="registerCtrl.verifyQuestions()">&nbsp;&nbsp;	(Answer at least two questions!)</span>
 		<br><br>
 		<!-- MOM NAME -->
 		<label for="momOriginLastName">momOriginLastName:</label>
@@ -75,10 +66,8 @@
 		<!-- BFF -->
 		<label for="childhoodBFF">childhoodBFF:</label>
 		<input type="text" name="childhoodBFF" ng-model="registerCtrl.childhoodBFF"><br>
+		<br><br>
 		<!-- SUBMIT -->
-		<span ng-show="registerCtrl.verifyQuestions()">Select minimum 2 categories</span>
-
-		<br>
 		<button type="submit" ng-disabled="regForm.$invalid">Register</button>
 	</form>
 </div>
