@@ -66,7 +66,7 @@ angular.module('london_app')
 				childhoodBFF: self.childhoodBFF
 			}
 			//console.log(newUser)
-			$http.post('http://localhost:3000/auth/register', $httpParamSerializerJQLike(newUser), $rootScope.config)
+			$http.post('http://localhost:3000/auth/register', $httpParamSerializerJQLike(newUser), $rootScope.postConfig)
 				.then(
 					function (response) {
 						if (response.data.ans) {

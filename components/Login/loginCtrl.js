@@ -4,7 +4,7 @@ angular.module('london_app')
 			let self = this;
 
 			self.sumbitLogin = function () {
-				$http.post('http://localhost:3000/auth/login', $httpParamSerializerJQLike(self.user), $rootScope.config)
+				$http.post('http://localhost:3000/auth/login', $httpParamSerializerJQLike(self.user), $rootScope.postConfig)
 					.then(function (response) {
 						const data = response.data;
 						if (data.status === 403) {

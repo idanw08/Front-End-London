@@ -1,11 +1,12 @@
 angular.module('london_app').controller('indexController', ['$rootScope', '$scope', 'tokenStorage', function ($rootScope, $scope, tokenStorage) {
-	$rootScope.config = {
+	$rootScope.postConfig = {
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded'
 		}
 	};
 	$rootScope.isLoggedIn = false
 	$rootScope.loggedUser = 'Guest'
+
 
 	let XHR = new XMLHttpRequest()
 	XHR.open("GET", "countries.xml", true)
@@ -24,7 +25,16 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 	}
 	XHR.send()
 
-	$scope.logout = function() {
+	$rootScope.tokenHeaderConfig = function (key) {
+		let token = tokenStorage.getUserToken(key)
+		return {
+			headers: {
+				'Authorization': `Bearer ${token}`
+			}
+		}
+	}
+
+	$rootScope.logout = function () {
 		// TODO: add a logout function which will reset all the information that the pages display of the logged user and then display the guset home page
 		tokenStorage.removeUserToken($rootScope.loggedUser)
 		$rootScope.isLoggedIn = false
