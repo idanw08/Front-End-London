@@ -20,6 +20,7 @@
 	<script src="components/Home_User/homeUserCtrl.js"></script>
 	<script src="indexController.js"></script>
 	<script src="Services/tokenStorage.js"></script>
+	<script src="Services/poiModal.js"></script>
 
 	<div ng-controller="indexController as idxCtrl">
 		<ul>
@@ -29,10 +30,13 @@
 			<li><a href="#!/poi">POI</a></li>
 			<li><a ng-if="!$root.isLoggedIn" href="#!/login">Login</a></li>
 			<li><a ng-if="$root.isLoggedIn" ng-click="$root.logout()" style="cursor: pointer">Logout</a></li>
+			<li><a ng-if="!$root.isLoggedIn" href="#!/register"> Register </a></li>
 			<li style="float: right"><a> Hello {{$root.loggedUser}} </a></li>
 		</ul>
 
-		<div ng-view></div>
+		<div id="ngView" ng-view></div>
+
+		<div id="modal"></div>
 	</div>
 </body>
 

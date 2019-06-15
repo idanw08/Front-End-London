@@ -1,5 +1,5 @@
 angular.module('london_app')
-	.controller('homeUserController', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
+	.controller('homeUserController', ['$rootScope', '$scope', '$http', 'ModalService', function ($rootScope, $scope, $http, ModalService) {
 		let self = this
 
 		if ($rootScope.isLoggedIn) {
@@ -18,6 +18,10 @@ angular.module('london_app')
 							poiImage.width = '400'
 							poiCell.appendChild(poiImage)
 							poiCell.insertBefore(document.createElement('br'), poiImage)
+
+							//poiLabel.setAttribute("ng-click", "homeUserCtrl.open()")
+							poiCell.setAttribute("ng-click", "homeUserCtrl.open()")
+							$rootScope.recompile(poiCell)
 						}
 
 					},
@@ -49,6 +53,15 @@ angular.module('london_app')
 								img.src = response.data[i].picture
 								td.appendChild(img)
 								td.insertBefore(document.createElement('br'), img)
+								td.setAttribute("ng-click", "homeUserCtrl.ModalService.open()")
+
+								var el = angular.element("modal");
+								$scope = el.scope();
+								$injector = el.injector();
+								$injector.invoke(function ($compile) {
+									$compile(el)($scope)
+								})
+
 								row.appendChild(td)
 							}
 						}
@@ -59,4 +72,7 @@ angular.module('london_app')
 					}
 				)
 		}
+
+		self.open = function () { ModalService.open(); }
+		self.close = function () { ModalService.close() }
 	}])

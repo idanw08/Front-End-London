@@ -26,3 +26,18 @@ tr {
 	text-align: center;
 	height: 50px;
 }
+
+#modal {
+	display: none;
+	position: fixed;
+	top: 10%;
+	left: 20%;
+	width: 60%;
+	height: 60%;
+	z-index: 1; /* Sit on top */
+	overflow: auto; /* Enable scroll if needed */
+	border: 2px solid;
+	padding: 10px;
+	background-color: #fefefe;  
+  	box-shadow: 10px 10px 20px 10px #888888;
+}

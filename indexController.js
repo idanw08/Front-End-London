@@ -42,4 +42,13 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 			$location.path('/')
 		}
 	}
+
+	$rootScope.recompile = function (elem) {
+		var el = angular.element(elem)
+		$scope = el.scope();
+		$injector = el.injector();
+		$injector.invoke(function ($compile) {
+			$compile(el)($scope)
+		})
+	}
 }]);
