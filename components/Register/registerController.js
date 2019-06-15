@@ -79,7 +79,7 @@ angular.module('london_app')
 							self.favouriteColor = ''
 							self.childhoodBFF = ''
 							$rootScope.loggedUser = newUser.username
-							$location.path('/homeUser')
+							$location.path('/login')
 
 						} else {
 							alert('Username already exist.')

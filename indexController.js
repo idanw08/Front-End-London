@@ -1,4 +1,4 @@
-angular.module('london_app').controller('indexController', ['$rootScope', '$scope', 'tokenStorage', function ($rootScope, $scope, tokenStorage) {
+angular.module('london_app').controller('indexController', ['$rootScope', '$scope', 'tokenStorage', '$location', function ($rootScope, $scope, tokenStorage, $location) {
 	$rootScope.postConfig = {
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded'
@@ -35,9 +35,11 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 	}
 
 	$rootScope.logout = function () {
-		// TODO: add a logout function which will reset all the information that the pages display of the logged user and then display the guset home page
-		tokenStorage.removeUserToken($rootScope.loggedUser)
-		$rootScope.isLoggedIn = false
-		$rootScope.loggedUser = 'Guest'
+		if (confirm('Are you sure you want to logout?')) {
+			tokenStorage.removeUserToken($rootScope.loggedUser)
+			$rootScope.isLoggedIn = false
+			$rootScope.loggedUser = 'Guest'
+			$location.path('/')
+		}
 	}
 }]);
