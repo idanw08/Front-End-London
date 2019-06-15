@@ -1,0 +1,51 @@
+<h1><span>All Points Of Interest In London</span></h1>
+<br />
+<div>
+  Category of points of views you looking for :
+  <select ng-model="category" aria-placeholder="All">
+    <option value="">All</option>
+    <option value="Food">Food</option>
+    <option value="Culture">Culture</option>
+    <option value="Shopping">Shopping</option>
+    <option value="Night_Life">Night Life</option>
+  </select>
+  <br />
+  <br />
+  Sort By :
+  <select ng-model="order">
+    <option value="poiRank">Rank</option>
+    <option value="numViews">Num of Views</option>
+    <option value="category">Catgory</option>
+  </select>
+  <br />
+  <br />
+  Search by name points of views you want :
+  <input type="text" ng-model="searchText.name" />
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Rank</th>
+        <th>Category</th>
+        <th>Num Of Views</th>
+        <th>Description</th>
+        <th>Picture</th>
+      </tr>
+    </thead>
+    <tr
+      ng-repeat="x in records | filter:searchText | filter:category | orderBy:order"
+    >
+      <td>{{ x.name }}</td>
+      <td>{{ x.poiRank }}</td>
+      <td>{{ x.category }}</td>
+      <td>{{ x.numViews }}</td>
+      <td>{{ x.poiDescription }}</td>
+      <td><img ng-src="{{ x.picture }}" height="250" width="450" /></td>
+    </tr>
+  </table>
+
+  <div ng-if="records.length">
+    We're sorry there's no results for your search. <br />
+    but Hi! you can try to search another place!
+  </div>
+</div>
