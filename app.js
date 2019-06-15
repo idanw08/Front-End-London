@@ -25,6 +25,10 @@ app.config(['$routeProvider', function ($routeProvider) {
 		.when('/about', {
 			templateUrl: 'components/About/about.html'
 		})
+		.when('/poi', {
+			templateUrl: 'components/All_Points_Interst/all_poi.html',
+			controller: 'allPointsofInterstController as allPOICtrl'
+		})
 		.otherwise({redirectTo: '/'});
 }]);
 
