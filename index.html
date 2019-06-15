@@ -29,8 +29,8 @@
 			<li><a href="#!/about">About</a></li>
 			<li><a href="#!/poi">POI</a></li>
 			<li><a ng-if="!$root.isLoggedIn" href="#!/login">Login</a></li>
-			<li><a ng-if="$root.isLoggedIn" ng-click="idxCtrl.logout()">Logout</a></li>
-			<li style="float: right"><a>{{$root.loggedUser}}</a></li>
+			<li><a ng-if="$root.isLoggedIn" ng-click="$root.logout()" style="cursor: pointer">Logout</a></li>
+			<li style="float: right"><a> Hello {{$root.loggedUser}} </a></li>
 		</ul>
 
 		<div ng-view></div>

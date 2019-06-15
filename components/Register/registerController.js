@@ -66,7 +66,7 @@ angular.module('london_app')
 				childhoodBFF: self.childhoodBFF
 			}
 			//console.log(newUser)
-			$http.post('http://localhost:3000/auth/register', $httpParamSerializerJQLike(newUser), $rootScope.config)
+			$http.post('http://localhost:3000/auth/register', $httpParamSerializerJQLike(newUser), $rootScope.postConfig)
 				.then(
 					function (response) {
 						if (response.data.ans) {
@@ -79,7 +79,7 @@ angular.module('london_app')
 							self.favouriteColor = ''
 							self.childhoodBFF = ''
 							$rootScope.loggedUser = newUser.username
-							$location.path('/homeUser')
+							$location.path('/login')
 
 						} else {
 							alert('Username already exist.')

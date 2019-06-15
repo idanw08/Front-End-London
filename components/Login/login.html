@@ -1,6 +1,5 @@
 <div style="display: flex; flex-direction: column; align-items: center; margin:80px">
-
-		<form name="loginForm" ng-submit="loginCtrl.sumbitLogin(loginForm.$valid)" novalidate>
+	<form name="loginForm" ng-submit="loginCtrl.sumbitLogin(loginForm.$valid)" novalidate>
 		<div class="form-group">
 			<label>Username:</label>
 			<input type="text" name="username" ng-model="loginCtrl.user.username" ng-minlength='3' ng-maxlength='8' ng-pattern="/^[a-zA-Z]*$/" required>
@@ -18,5 +17,17 @@
 		<br><br>
 		<button type="submit" ng-disabled="loginForm.$invalid">Login</button>
 	</form>
-	<button ng-click="goto('/passwordRecovery')">forgot password?</button>
+	
+	<!-- PASSWORD RECOVERY -->
+	<button id="forgotPassword" ng-click="loginCtrl.getRecoveryQuestion(loginForm.username)" ng-disabled="loginForm.username.$invalid">forgot password?</button>
+	
+	<br><br><br>
+	
+	<div id="recoveryDiv" style="display: none">
+		<form name="passRecForm" id="passRecForm" ng-submit="loginCtrl.recoverPassword(passRecForm.$valid)">
+			<label for="recoveryAnswer" id="recoveryQuestion"></label> &nbsp;
+			<input type="text" name="recoveryAnswer" id="recoveryAnswer" ng-model="loginCtrl.recoveryAnswer" required>
+			<button type="submit" ng-disabled="passRecForm.$invalid"> Get Password </button>
+		</form>
+	</div>
 </div>
