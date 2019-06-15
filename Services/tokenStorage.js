@@ -23,4 +23,9 @@ angular.module('london_app').service('tokenStorage', ['localStorageService', fun
 	self.getUserToken = function (key) {
 		return localStorageService.get(key)
 	}
+
+	self.removeUserToken = function(key) {
+		localStorage.removeItem(key)
+		console.log(`${key} token removed`);
+	}
 }]);

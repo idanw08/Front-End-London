@@ -1,9 +1,10 @@
-angular.module('london_app').controller('indexController', ['$rootScope', '$scope', function ($rootScope, $scope) {
+angular.module('london_app').controller('indexController', ['$rootScope', '$scope', 'tokenStorage', function ($rootScope, $scope, tokenStorage) {
 	$rootScope.config = {
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded'
 		}
 	};
+	$rootScope.isLoggedIn = false
 	$rootScope.loggedUser = 'Guest'
 
 	let XHR = new XMLHttpRequest()
@@ -23,4 +24,10 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 	}
 	XHR.send()
 
+	$scope.logout = function() {
+		// TODO: add a logout function which will reset all the information that the pages display of the logged user and then display the guset home page
+		tokenStorage.removeUserToken($rootScope.loggedUser)
+		$rootScope.isLoggedIn = false
+		$rootScope.loggedUser = 'Guest'
+	}
 }]);

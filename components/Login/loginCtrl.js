@@ -16,6 +16,7 @@ angular.module('london_app')
 							return
 						}
 						tokenStorage.addUserToken(self.user.username, data.token) //saves the token in localstorage
+						$rootScope.isLoggedIn = true
 						$rootScope.loggedUser = self.user.username
 						$location.path('/homeUser')
 					},

@@ -14,19 +14,21 @@
 	<script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
 	<script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
 	<script src="app.js"></script>
-	<script src="components/homeGuestCtrl.js"></script>
-	<script src="components/loginCtrl.js"></script>
-	<script src="components/registerController.js"></script>
-	<script src="components/homeUserCtrl.js"></script>
+	<script src="components/Home_Guest/homeGuestCtrl.js"></script>
+	<script src="components/Login/loginCtrl.js"></script>
+	<script src="components/Register/registerController.js"></script>
+	<script src="components/Home_User/homeUserCtrl.js"></script>
 	<script src="indexController.js"></script>
 	<script src="Services/tokenStorage.js"></script>
 
 	<div ng-controller="indexController as idxCtrl">
 		<ul>
-			<li><a href="/">Home</a></li>
+			<li><a ng-if="!$root.isLoggedIn" href="/">Home</a></li>
+			<li><a ng-if="$root.isLoggedIn" href="#!/homeUser">Home</a></li>
 			<li><a href="#!/about">About</a></li>
 			<li><a href="#!/poi">POI</a></li>
-			<li><a href="#!/login">Login</a></li>
+			<li><a ng-if="!$root.isLoggedIn" href="#!/login">Login</a></li>
+			<li><a ng-if="$root.isLoggedIn" ng-click="idxCtrl.logout()">Logout</a></li>
 			<li style="float: right"><a>{{$root.loggedUser}}</a></li>
 		</ul>
 

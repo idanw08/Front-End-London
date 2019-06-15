@@ -7,20 +7,23 @@ app.config(['localStorageServiceProvider', function(localStorageServiceProvider)
 app.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: 'components/home_guest.html',
+			templateUrl: 'components/Home_Guest/home_guest.html',
 			controller: 'homeGuestController as homeGuestCtrl'
 		})
 		.when('/login', {
-			templateUrl: 'components/login.html',
+			templateUrl: 'components/Login/login.html',
 			controller: 'loginController as loginCtrl'
 		})
 		.when('/register', {
-			templateUrl: 'components/register.html',
+			templateUrl: 'components/Register/register.html',
 			controller: 'registerController as registerCtrl'
 		})
 		.when('/homeUser', {
-			templateUrl: 'components/home_user.html',
+			templateUrl: 'components/Home_User/home_user.html',
 			controller: 'homeUserController as homeUserCtrl'
+		})
+		.when('/about', {
+			templateUrl: 'components/About/about.html'
 		})
 		.otherwise({redirectTo: '/'});
 }]);
