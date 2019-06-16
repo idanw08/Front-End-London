@@ -8,6 +8,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 		$rootScope.isLoggedIn = false
 		$rootScope.loggedUser = 'Guest'
 		$rootScope.allPois = []
+        $rootScope.localFav=[];
 
 		let XHR = new XMLHttpRequest()
 		XHR.open("GET", "countries.xml", true)

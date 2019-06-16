@@ -38,15 +38,29 @@
         <th>Picture</th>
       </tr>
     </thead>
-    <tr ng-repeat="x in allPois | filter:searchText | filter:category | orderBy:order">
+    <tr
+      ng-repeat="x in allPois | filter:searchText | filter:category | orderBy:order"
+    >
       <td class="viewBtn" ng-click="allPOICtrl.open(x)">{{ x.name }}</td>
       <td>{{ x.poiRank }}</td>
       <td>{{ x.category }}</td>
       <td>{{ x.numViews }}</td>
       <td>{{ x.poiDescription }}</td>
-      <td class="viewBtn" ng-click="allPOICtrl.open(x)"><img ng-src="{{ x.picture }}" height="250" width="450" /></td>
-      <td><input type="checkbox" ng-click="allPOICtrl.changeSrc(x)">
-      </td>  
+      <td class="viewBtn" ng-click="allPOICtrl.open(x)">
+        <img ng-src="{{ x.picture }}" height="250" width="450" />
+      </td>
+      <td><img
+        src="misc\heartreg.png"
+        ng-style="{'height': '30px','width':'40px','cursor':'pointer'}"
+        ng-click="allPOICtrl.saveFav(x)"
+        ng-show="!allPOICtrl.checkifFav(x)"
+      />
+      <img
+        src="misc\heartfav.png"
+        ng-style="{'height': '30px','width':'40px','cursor':'pointer'}"
+        ng-click="allPOICtrl.saveFav(x)"
+        ng-show="allPOICtrl.checkifFav(x)"
+      /></td>
     </tr>
   </table>
 
@@ -55,5 +69,6 @@
     but Hi! you can try to search another place!
   </div>
 </div>
-
+<!-- <input type="checkbox" ng-click="allPOICtrl.changeSrc(x)" /> -->
 <!-- ng-if="$root.isLoggedIn" -->
+
