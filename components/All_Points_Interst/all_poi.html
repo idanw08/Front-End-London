@@ -1,11 +1,6 @@
-<style>
-  .viewBtn {
-    cursor: pointer;
-  }
-</style>
-
 <h1><span>All Points Of Interest In London</span></h1>
 <br />
+<p ng-model="localFav.length" ng-if="$root.isLoggedIn">You saved {{ localFav.length }} places in london!</p>
 <div>
   Category of points of views you looking for :
   <select ng-model="category" aria-placeholder="All">
@@ -20,7 +15,7 @@
   Sort By :
   <select ng-model="order">
     <option value="poiRank">Rank</option>
-    <option value="numViews">Num of Views</option>
+    <!-- <option value="numViews">Num of Views</option> -->
     <option value="category">Category</option>
   </select>
   <br />
@@ -49,17 +44,9 @@
       <td class="viewBtn" ng-click="allPOICtrl.open(x)">
         <img ng-src="{{ x.picture }}" height="250" width="450" />
       </td>
-      <td><img
-        src="misc\heartreg.png"
-        ng-style="{'height': '30px','width':'40px','cursor':'pointer'}"
-        ng-click="allPOICtrl.saveFav(x)"
-        ng-show="!allPOICtrl.checkifFav(x)"
-      />
-      <img
-        src="misc\heartfav.png"
-        ng-style="{'height': '30px','width':'40px','cursor':'pointer'}"
-        ng-click="allPOICtrl.saveFav(x)"
-        ng-show="allPOICtrl.checkifFav(x)"
+      <td ng-if="$root.isLoggedIn">
+        <img src="misc\heartreg.png" ng-click="allPOICtrl.saveFav(x)" ng-show="!allPOICtrl.checkifFav(x)"/>
+        <img src="misc\heartfav.png" ng-click="allPOICtrl.saveFav(x)" ng-show="allPOICtrl.checkifFav(x)"
       /></td>
     </tr>
   </table>
@@ -69,6 +56,5 @@
     but Hi! you can try to search another place!
   </div>
 </div>
-<!-- <input type="checkbox" ng-click="allPOICtrl.changeSrc(x)" /> -->
-<!-- ng-if="$root.isLoggedIn" -->
+<!--  -->
 
