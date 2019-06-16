@@ -21,7 +21,7 @@
   <select ng-model="order">
     <option value="poiRank">Rank</option>
     <option value="numViews">Num of Views</option>
-    <option value="category">Catgory</option>
+    <option value="category">Category</option>
   </select>
   <br />
   <br />
@@ -45,11 +45,16 @@
       <td>{{ x.numViews }}</td>
       <td>{{ x.poiDescription }}</td>
       <td class="viewBtn" ng-click="allPOICtrl.open(x)"><img ng-src="{{ x.picture }}" height="250" width="450" /></td>
+      <td><img ng-src="{{ x.picture }}" height="250" width="450" /></td>
+      <td><input type="checkbox" ng-click="allPOICtrl.changeSrc(x)">
+      </td>  
     </tr>
   </table>
 
-  <div ng-if="allPois.length">
+  <div ng-if="!afterFilter.length">
     We're sorry there's no results for your search. <br />
     but Hi! you can try to search another place!
   </div>
 </div>
+
+<!-- ng-if="$root.isLoggedIn" -->
