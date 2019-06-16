@@ -1,5 +1,5 @@
 angular.module('london_app')
-	.controller('homeGuestController', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
+	.controller('homeGuestController', ['$scope', '$rootScope', '$http', '$location', 'ModalService', function ($scope, $rootScope, $http, $location, ModalService) {
 		let self = this;
 
 		self.goto = function (page) {
@@ -24,8 +24,11 @@ angular.module('london_app')
 						})
 					}
 				},
-				function(error) {
+				function (error) {
 					console.log('error randExplorePOIs');
 				}
 			)
+
+		self.open = function () { ModalService.open(); }
+		// self.close = function () { ModalService.close() }
 	}]);

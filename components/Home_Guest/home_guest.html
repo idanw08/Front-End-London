@@ -1,3 +1,8 @@
+<style>
+	.POI:hover {
+		cursor: pointer;
+	}
+</style>
 
 <div style="margin: 30px; display: flex; flex-direction: column; align-items: center">
 	<table style="width: 60%">
@@ -23,19 +28,19 @@
 
 	<table>
 		<tr>
-			<td id="poi0" style="border:2px black solid">
+			<td class="POI" id="poi0" style="border:2px black solid" ng-click="homeGuestCtrl.open()">
 				<div>
 					<p>{{homeGuestCtrl.pois[0].name}}</p><br>
 					<img src={{homeGuestCtrl.pois[0].picture}} width="400" height="250">
 				</div>
 			</td>
-			<td id="poi1" style="border:2px black solid">
+			<td class="POI" id="poi1" style="border:2px black solid" ng-click="homeGuestCtrl.open()">
 				<div>
 					<p>{{homeGuestCtrl.pois[1].name}}</p><br>
 					<img src={{homeGuestCtrl.pois[1].picture}} width="400" height="250">
 				</div>
 			</td>
-			<td id="poi2" style="border:2px black solid">
+			<td class="POI" id="poi2" style="border:2px black solid" ng-click="homeGuestCtrl.open()">
 				<div>
 					<p>{{homeGuestCtrl.pois[2].name}}</p><br>
 					<img src={{homeGuestCtrl.pois[2].picture}} width="400" height="250">

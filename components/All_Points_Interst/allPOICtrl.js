@@ -6,7 +6,7 @@ angular.module('london_app')
     .then(
         function (response) {
         let data = response.data
-        $scope.records = data;
+        $rootScope.allPois = data;
         },
         function (error) {
 

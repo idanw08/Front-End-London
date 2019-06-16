@@ -33,7 +33,7 @@
       </tr>
     </thead>
     <tr
-      ng-repeat="x in records | filter:searchText | filter:category | orderBy:order"
+      ng-repeat="x in allPois | filter:searchText | filter:category | orderBy:order"
     >
       <td>{{ x.name }}</td>
       <td>{{ x.poiRank }}</td>
@@ -44,7 +44,7 @@
     </tr>
   </table>
 
-  <div ng-if="records.length">
+  <div ng-if="allPois.length">
     We're sorry there's no results for your search. <br />
     but Hi! you can try to search another place!
   </div>

@@ -18,7 +18,7 @@ li a {
 	text-decoration: none;
 }
 
-li a:hover {
+.menuBtns:hover {
 	background-color: #554455;
 }
 
@@ -27,6 +27,22 @@ tr {
 	height: 50px;
 }
 
+.modalHeader {
+	margin: 0 10px;
+	cursor: default;
+}
+
+.modalHeader h4 {
+	float: left;
+}
+
+.modalHeader #X {
+	float: right;
+	cursor: pointer;
+	border: 1px black solid
+}
+
+
 #modal {
 	display: none;
 	position: fixed;
@@ -34,10 +50,12 @@ tr {
 	left: 20%;
 	width: 60%;
 	height: 60%;
-	z-index: 1; /* Sit on top */
-	overflow: auto; /* Enable scroll if needed */
+	z-index: 1;
+	/* Sit on top */
+	overflow: auto;
+	/* Enable scroll if needed */
 	border: 2px solid;
 	padding: 10px;
-	background-color: #fefefe;  
-  	box-shadow: 10px 10px 20px 10px #888888;
+	background-color: #fefefe;
+	box-shadow: 10px 10px 20px 10px #888888;
 }
