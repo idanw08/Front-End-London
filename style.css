@@ -43,7 +43,7 @@ tr {
 }
 
 
-#modal {
+#modal-dialog {
 	display: none;
 	position: fixed;
 	top: 10%;

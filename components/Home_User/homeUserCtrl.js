@@ -7,6 +7,9 @@ angular.module('london_app')
 				.then(
 					function (response) {
 						for (let i = 0; i < 2; i++) {
+							if (i === 0) { self.rcmndPOI0 = response.data[i] }
+							else { self.rcmndPOI1 = response.data[i] }
+
 							let poiCell = document.getElementById(`poi${i}`)
 							let poiLabel = document.createElement('label')
 							let poiName = document.createTextNode(response.data[i].name)
@@ -19,8 +22,9 @@ angular.module('london_app')
 							poiCell.appendChild(poiImage)
 							poiCell.insertBefore(document.createElement('br'), poiImage)
 
-							//poiLabel.setAttribute("ng-click", "homeUserCtrl.open()")
-							poiCell.setAttribute("ng-click", "homeUserCtrl.open()")
+							if (i === 0) poiCell.setAttribute("ng-click", "homeUserCtrl.open(homeUserCtrl.rcmndPOI0)")
+							else poiCell.setAttribute("ng-click", "homeUserCtrl.open(homeUserCtrl.rcmndPOI1)")
+
 							$rootScope.recompile(poiCell)
 						}
 
@@ -41,9 +45,10 @@ angular.module('london_app')
 							label.appendChild(text)
 							row.appendChild(label)
 						} else {
-							// TODO: add favourites and check it works correctly!!!
-							// TODO: if clicked then display the POI page
 							for (let i = 0; i < 2; i++) {
+								if (i === 0) { self.rcntPOI0 = response.data[i] }
+								else { self.rcntPOI1 = response.data[i] }
+
 								let td = document.createElement('td')
 								let label = document.createElement('label')
 								let text = document.createTextNode(response.data[i].name)
@@ -51,18 +56,14 @@ angular.module('london_app')
 								td.appendChild(label)
 								let img = document.createElement('img')
 								img.src = response.data[i].picture
+								img.height = "250"
+								img.width = "400"
 								td.appendChild(img)
 								td.insertBefore(document.createElement('br'), img)
-								td.setAttribute("ng-click", "homeUserCtrl.ModalService.open()")
-
-								var el = angular.element("modal");
-								$scope = el.scope();
-								$injector = el.injector();
-								$injector.invoke(function ($compile) {
-									$compile(el)($scope)
-								})
-
+								if(i===0) {td.setAttribute("ng-click", "homeUserCtrl.open(homeUserCtrl.rcntPOI0)")}
+								else {td.setAttribute("ng-click", "homeUserCtrl.open(homeUserCtrl.rcntPOI1)")}
 								row.appendChild(td)
+								$rootScope.recompile(td)
 							}
 						}
 					},
@@ -73,6 +74,8 @@ angular.module('london_app')
 				)
 		}
 
-		self.open = function () { ModalService.open(); }
-		self.close = function () { ModalService.close() }
+		self.open = function (poi) {
+			if (!ModalService.isOpen)
+				ModalService.open(poi);
+		}
 	}])

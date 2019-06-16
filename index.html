@@ -39,13 +39,18 @@
 
 		<div id="ngView" ng-view></div>
 
-		<div id="modal">
+		<div id="modal-dialog">
 			<header class="modalHeader">
-				<h4>Point Of Interest</h4>
-				<button id="X" onclick="document.getElementById('modal').style.display='none';  document.body.style = 'background-color: white';" class="modalHeader">X</button>
+				<h4 id="poiName"></h4>
+				<button id="X" ng-click="idxCtrl.closeModal()" class="modalHeader">X</button>
 			</header>
-			<div class="poiContent">
-				
+			<br><br><br>
+			<div id="poiContent">
+				<img id="poiImage" width="400" height="200">
+				<p id=poiDesc></p>
+				<label>
+					Views: <span id="poiViews"></span>
+				</label>
 			</div>
 		</div>
 	</div>

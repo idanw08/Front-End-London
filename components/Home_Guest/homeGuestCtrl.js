@@ -9,7 +9,7 @@ angular.module('london_app')
 		$http.get('http://localhost:3000/guest/randExplorePOIs/0')
 			.then(
 				function (response) {
-					console.log('response randExplorePOIs');
+					console.log('randExplorePOIs successful');
 					const ans = response.data;
 					self.pois = [];
 					for (let i = 0; i < 3; i++) {
@@ -29,6 +29,8 @@ angular.module('london_app')
 				}
 			)
 
-		self.open = function () { ModalService.open(); }
-		// self.close = function () { ModalService.close() }
+		self.open = function (poi) { 
+			if(!ModalService.isOpen)
+				ModalService.open(poi); 
+		}
 	}]);
