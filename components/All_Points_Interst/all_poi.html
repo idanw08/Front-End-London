@@ -39,8 +39,8 @@
       <td>{{ x.numViews }}</td>
       <td>{{ x.poiDescription }}</td>
       <td><img ng-src="{{ x.picture }}" height="250" width="450" /></td>
-      <td><img ng-src="{{ heartpic }}" ng-init="heartpic = 'misc\heartfav.png'" ng-click="allPOICtrl.addtoFav(heartpic)"> 
-      </td>
+      <td><input type="checkbox" ng-click="allPOICtrl.changeSrc(x)">
+      </td>  
     </tr>
   </table>
 
