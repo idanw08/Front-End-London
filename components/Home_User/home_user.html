@@ -1,25 +1,22 @@
 <style>
-	/* #seperator {
-		width: 112px;
-		height: 47px;
-		border-bottom: 1px solid black;
-		position: absolute;
-	} */
+	.viewBtn {
+		cursor: pointer;
+	}
 </style>
 
 <div>
 	<!-- recommended POIs -->
 	<div>
-		<table>
-			<th colspan="2"> We believe you might like these: </th>
-			<tr>
+		<table class="viewBtn">
+			<th class="viewBtn" colspan="2"> We believe you might like these: </th>
+			<tr class="viewBtn">
 				<td id="poi0"></td>
 				<td id="poi1"></td>
 			</tr>
 			
 			<br><br>
-			<th colspan="2"> Your recent saves: </th>
-			<tr id="rsRow"></tr>
+			<th class="viewBtn" colspan="2"> Your recent saves: </th>
+			<tr class="viewBtn" id="rsRow"></tr>
 		</table>
 	</div>
 

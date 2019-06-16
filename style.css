@@ -46,10 +46,10 @@ tr {
 #modal-dialog {
 	display: none;
 	position: fixed;
-	top: 10%;
-	left: 20%;
-	width: 60%;
-	height: 60%;
+	top: 1%;
+	left: 10%;
+	width: 80%;
+	height: 90%;
 	z-index: 1;
 	/* Sit on top */
 	overflow: auto;

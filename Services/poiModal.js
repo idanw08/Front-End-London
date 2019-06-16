@@ -8,6 +8,7 @@ angular.module('london_app').service('ModalService', ['$rootScope', '$http', '$h
     let poiDesc = document.getElementById('poiDesc')
     let poiImg = document.getElementById('poiImage')
     self.poiViews = document.getElementById('poiViews')
+    self.poiRating = document.getElementById('poiRating')
 
     self.init = function (pois) {
         self.pois = pois
@@ -35,6 +36,7 @@ angular.module('london_app').service('ModalService', ['$rootScope', '$http', '$h
                             poiName.innerHTML = poi.name
                             poiDesc.innerHTML = poi.poiDescription
                             self.poiViews.innerHTML = poi.numViews
+                            self.poiRating.innerHTML = poi.poiRank
                             document.body.style = "background-color: rgba(0,0,0,0.4);"
                             modal.style = "display: unset;"
                             self.isOpen = true
@@ -42,9 +44,5 @@ angular.module('london_app').service('ModalService', ['$rootScope', '$http', '$h
                         function (error) { }
                     )
             }, function (error) { })
-
-        // setTimeout(() => {
-
-        // }, 200)
     }
 }])

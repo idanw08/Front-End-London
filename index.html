@@ -46,11 +46,24 @@
 			</header>
 			<br><br><br>
 			<div id="poiContent">
-				<img id="poiImage" width="400" height="200">
-				<p id=poiDesc></p>
-				<label>
-					Views: <span id="poiViews"></span>
-				</label>
+				<div style="display:flex; justify-content: space-evenly">
+					<img id="poiImage" width="400" height="200">
+					<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+					<div>
+						<p id=poiDesc></p> <br><br>
+						<div style="display: inline-flex">
+							<label>Number of Views: <span id="poiViews"></span></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label>Rating: <span id="poiRating"></span>% People like this!</label>
+						</div>
+					</div>
+				</div>
+				<br>
+				<label><u> Comments </u></label>
+				<div id="comments">
+					<!-- TODO: here will be the comments section -->
+				</div>
 			</div>
 		</div>
 	</div>
