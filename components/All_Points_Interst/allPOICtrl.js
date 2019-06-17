@@ -7,10 +7,10 @@ angular.module("london_app").controller("allPointsofInterstController", [
   function ($scope, $rootScope, $http, $location, ModalService) {
     let self = this;
 
-    self.gotoFAV = function(){
+    self.gotoFAV = function () {
       $location.path('/favs')
-    } 
-    
+    }
+
     /** saves in the local favorite list the POI's */
     self.saveInFavLocalList = function (POi) {
       if ($rootScope.localFav.filter(value => value.name == POi.name).length > 0) {
@@ -30,15 +30,6 @@ angular.module("london_app").controller("allPointsofInterstController", [
         else return false;
       }
     };
-
-    // self.getUserFavourites = function () {
-    //   $http.get("http://localhost:3000/user/getUserFavourites/" + $rootScope.loggedUser, $rootScope.tokenHeaderConfig($rootScope.loggedUser))
-    //     .then(function (response) {
-    //       console.log(response);
-    //     },
-    //       function (error) { }
-    //     );
-    // }
 
     $http.get("http://localhost:3000/user/poi/getAll_POI").then(
       function (response) {
