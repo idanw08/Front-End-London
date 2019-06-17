@@ -29,6 +29,10 @@ app.config(['$routeProvider', function ($routeProvider) {
 			templateUrl: 'components/All_Points_Interst/all_poi.html',
 			controller: 'allPointsofInterstController as allPOICtrl'
 		})
+		.when('/favs', {
+			templateUrl: 'components/Favourites/favourites.html',
+			controller: 'favouritesController as favsCtrl'
+		})
 		.otherwise({redirectTo: '/'});
 }]);
 
