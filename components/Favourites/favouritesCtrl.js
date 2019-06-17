@@ -1,17 +1,7 @@
 angular.module('london_app')
-	.controller('favouritesController', ['$rootScope', '$http', '$location', '$httpParamSerializerJQLike',
-		function ($rootScope, $http, $location, $httpParamSerializerJQLike) {
+	.controller('favouritesController', ['$rootScope', '$http', '$location', '$httpParamSerializerJQLike', 'ModalService',
+		function ($rootScope, $http, $location, $httpParamSerializerJQLike, ModalService) {
 			let self = this
-
-			// if ($rootScope.isLoggedIn) {
-			// 	$http.get("http://localhost:3000/user/getUserFavourites/" + $rootScope.loggedUser, $rootScope.tokenHeaderConfig($rootScope.loggedUser))
-			// 		.then(function (response) {
-			// 			self.DBfavs = response.data
-			// 			// console.log(self.DBfavs);
-			// 		},
-			// 			function (error) { }
-			// 		);
-			// }
 
 			self.saveInFavLocalList = function (POi) {
 				if ($rootScope.localFav.filter(value => value.name == POi.name).length > 0) {

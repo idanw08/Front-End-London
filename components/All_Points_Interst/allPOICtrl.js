@@ -17,7 +17,12 @@ angular.module("london_app").controller("allPointsofInterstController", [
         let i = $rootScope.localFav.findIndex(x => x.name === POi.name);
         if (i > -1) $rootScope.localFav.splice(i, 1);
       } else {
-        $rootScope.localFav.push(POi);
+        $rootScope.localFav.push({
+          FK_username: $rootScope.loggedUser,
+          FK_poi_name: POi.name,
+          _time_date: new Date().toISOString().replace('T', ' ').replace('Z', ' '),
+          _priority: $rootScope.localFav.length
+        });
         console.log($rootScope.localFav)
       }
     };

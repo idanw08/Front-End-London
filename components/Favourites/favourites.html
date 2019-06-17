@@ -1,11 +1,10 @@
 <style>
+    .pointer {
+        cursor: pointer;
+    }
     .orderArrow {
         font-size:250%; 
         cursor: pointer;
-    }
-
-    img {
-        
     }
 </style>
 
@@ -22,16 +21,16 @@
                 <div class="orderArrow" ng-click="favsCtrl.moveUp(x)"> &#9650 </div>
                 <div class="orderArrow" ng-click="favsCtrl.moveDown(x)"> &#9660 </div>
             </td>
-            <td class="viewBtn" ng-click="favsCtrl.open(x)">{{ x.name }}</td>
-            <td class="viewBtn" ng-click="favsCtrl.open(x)">
-                <img ng-src="{{ x.picture }}" height="250" width="450" />
+            <td class="pointer" ng-click="favsCtrl.open(x)">{{ x.name }}</td>
+            <td class="pointer" ng-click="favsCtrl.open(x)">
+                <img ng-src="{{ x.picture }}" height="200" width="350" />
             </td>
 
             <!-- Like / Dislike -->
             <td ng-if="$root.isLoggedIn">
-                <img src="misc\trash.png" width="100" height="100" ng-click="favsCtrl.saveInFavLocalList(x)"
-                ng-show="!favsCtrl.checkIfinFav(x)" />
-                <img src="misc\trash.png" width="100" height="100" ng-click="favsCtrl.saveInFavLocalList(x)"
+                <!-- <img src="misc\trash.png" width="100" height="100" ng-click="favsCtrl.saveInFavLocalList(x)"
+                ng-show="!favsCtrl.checkIfinFav(x)" /> -->
+                <img class="pointer" src="misc\trash.png" width="70" height="70" ng-click="favsCtrl.saveInFavLocalList(x)"
                     ng-show="favsCtrl.checkIfinFav(x)" />
             </td>
             <!-- Like / Dislike -->
