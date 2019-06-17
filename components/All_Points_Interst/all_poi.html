@@ -4,7 +4,7 @@
 <p ng-if="$root.isLoggedIn">Just click on the icon to see your favorite places in London.<img src="misc\favoritefolder.png" ng-click="allPOICtrl.test()"/>
 </p>
 <div>
-  Category of points of views you looking for :
+  You can choose the category of the points of views you looking for :
   <select ng-model="category" aria-placeholder="All">
     <option value="">All</option>
     <option value="Food">Food</option>
@@ -14,16 +14,19 @@
   </select>
   <br />
   <br />
+  Search by the name of the point of view you looking for :
+  <input type="text" ng-model="searchText.name" />
+  <br />
+  <br />
   Sort By :
   <select ng-model="order">
+    <option value="">Name</option>
     <option value="poiRank">Rank</option>
     <!-- <option value="numViews">Num of Views</option> -->
     <option value="category">Category</option>
   </select>
   <br />
   <br />
-  Search by name points of views you want :
-  <input type="text" ng-model="searchText.name" />
   <table>
     <thead>
       <tr>
@@ -36,11 +39,11 @@
       </tr>
     </thead>
     <tr
-      ng-repeat="x in allPois | filter:searchText | filter:category | orderBy:order"
+      ng-repeat="x in (afterFilter = (allPois | filter:searchText | filter:category | orderBy:order))"
     >
       <td class="viewBtn" ng-click="allPOICtrl.open(x)">{{ x.name }}</td>
       <td>{{ x.poiRank }}</td>
-      <td>{{ x.category }}</td>
+      <td>{{ (x.category == "Night_Life") ? "Night Life" : x.category }}</td>
       <td>{{ x.numViews }}</td>
       <td>{{ x.poiDescription }}</td>
       <td class="viewBtn" ng-click="allPOICtrl.open(x)">
