@@ -8,7 +8,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 		$rootScope.isLoggedIn = false
 		$rootScope.loggedUser = 'Guest'
 		$rootScope.allPois = []
-        $rootScope.localFav=[];
+		$rootScope.localFav = [];
 
 		let XHR = new XMLHttpRequest()
 		XHR.open("GET", "countries.xml", true)
@@ -27,6 +27,14 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 		}
 		XHR.send()
 
+		$http.get("http://localhost:3000/user/poi/getAll_POI").then(
+			function (response) {
+				let data = response.data;
+				$rootScope.allPois = data;
+			},
+			function (error) { }
+		);
+
 		$rootScope.tokenHeaderConfig = function (key) {
 			let token = tokenStorage.getUserToken(key)
 			return {
@@ -41,6 +49,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 				tokenStorage.removeUserToken($rootScope.loggedUser)
 				$rootScope.isLoggedIn = false
 				$rootScope.loggedUser = 'Guest'
+				$rootScope.localFav = []
 				$location.path('/')
 			}
 		}
@@ -62,8 +71,8 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 
 		document.onclick = function (e) {
 			let modal = document.getElementById('modal-dialog')
-			if (!(e.target === modal || (modal.contains(e.target) && e.target!==document.getElementById('X')))) {
+			if (!(e.target === modal || (modal.contains(e.target) && e.target !== document.getElementById('X')))) {
 				self.closeModal()
-			} 
+			}
 		}
 	}]);

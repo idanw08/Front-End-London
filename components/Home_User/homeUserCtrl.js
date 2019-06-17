@@ -35,36 +35,54 @@ angular.module('london_app')
 					}
 				)
 
+			//return the 2 most recent saves
 			$http.get(`http://localhost:3000/guest/userRecentSaves/${$rootScope.loggedUser}`, $rootScope.tokenHeaderConfig($rootScope.loggedUser))
 				.then(
 					function (response) {
 						let row = document.getElementById('rsRow')
-						if (response.data.length === 0) {
+						if (response.data.length === 0 && $rootScope.localFav.length == 0) {
+							//console.log('0-0')
 							let label = document.createElement('label')
 							let text = document.createTextNode('YOU DID NOT SAVE ANY FAVOURITE POINTS IN LONDON!')
 							label.appendChild(text)
 							row.appendChild(label)
-						} else {
-							for (let i = 0; i < 2; i++) {
-								if (i === 0) { self.rcntPOI0 = response.data[i] }
-								else { self.rcntPOI1 = response.data[i] }
+						}
+						else if (response.data.length === 0 && $rootScope.localFav.length === 1) {
+							//console.log('0-1')
+							self.rcntPOI0 = $rootScope.localFav[0]
+							createTD($rootScope.localFav[0], 0)
+						}
+						else if (response.data.length === 1 && $rootScope.localFav.length === 1) {
+							//console.log('1-1')
+							//console.log('1===1')
+							self.rcntPOI0 = response.data[0]
+							createTD(response.data[0], 0)
+						}
+						else if (response.data.length === 0 && $rootScope.localFav.length > 1) {
+							//console.log('0->1')
+							let ans = local2RecentSaves($rootScope.localFav)
+							self.rcntPOI0 = ans[0]
+							self.rcntPOI1 = ans[1]
+							createTD($rootScope.localFav[0], 0)
+							createTD($rootScope.localFav[1], 1)
+						}
 
-								let td = document.createElement('td')
-								let label = document.createElement('label')
-								let text = document.createTextNode(response.data[i].name)
-								label.appendChild(text)
-								td.appendChild(label)
-								let img = document.createElement('img')
-								img.src = response.data[i].picture
-								img.height = "250"
-								img.width = "400"
-								td.appendChild(img)
-								td.insertBefore(document.createElement('br'), img)
-								if(i===0) {td.setAttribute("ng-click", "homeUserCtrl.open(homeUserCtrl.rcntPOI0)")}
-								else {td.setAttribute("ng-click", "homeUserCtrl.open(homeUserCtrl.rcntPOI1)")}
-								row.appendChild(td)
-								$rootScope.recompile(td)
-							}
+						else if (response.data.length > 1 && $rootScope.localFav.length === 0) {
+							//console.log('>1-0')
+							let ans = local2RecentSaves(response.data)
+							self.rcntPOI0 = ans[0]
+							self.rcntPOI1 = ans[1]
+							createTD(ans[0], 0)
+							createTD(ans[1], 1)
+						}
+						else {
+							//console.log('>1->1')
+							let ans = local2RecentSaves($rootScope.localFav)
+							//console.log(ans)
+							self.rcntPOI0 = ans[0]
+							self.rcntPOI1 = ans[1]
+							createTD(ans[0], 0)
+							createTD(ans[1], 1)
 						}
 					},
 					function (error) {
@@ -74,8 +92,55 @@ angular.module('london_app')
 				)
 		}
 
+		function createTD(data, i) {
+			console.log(data)
+			let td = document.createElement('td')
+			let label = document.createElement('label')
+			let text
+			if (data.name)
+				text = document.createTextNode(data.name)
+			else
+				text = document.createTextNode(data.FK_poi_name)
+			label.appendChild(text)
+			td.appendChild(label)
+			let img = document.createElement('img')
+			if (data.picture)
+				img.src = data.picture
+			else
+				img.src = data.img
+			img.height = "250"
+			img.width = "400"
+			td.appendChild(img)
+			td.insertBefore(document.createElement('br'), img)
+			if (i == 0) td.setAttribute("ng-click", "homeUserCtrl.open(homeUserCtrl.rcntPOI0)")
+			else td.setAttribute("ng-click", "homeUserCtrl.open(homeUserCtrl.rcntPOI1)")
+			document.getElementById('rsRow').appendChild(td)
+			$rootScope.recompile(td)
+		}
+
 		self.open = function (poi) {
 			if (!ModalService.isOpen)
 				ModalService.open(poi);
+		}
+
+		function local2RecentSaves() {
+			let ans1, ans2
+			let time1 = '0000-01-01 00:01:01.111'
+			$rootScope.localFav.forEach(element => {
+				if (element._time_date > time1) {
+					time1 = element._time_date
+					ans1 = element
+				}
+			})
+
+			let time2 = '0000-01-01 00:01:01.111'
+			$rootScope.localFav.forEach(element => {
+				if (element._time_date !== time1 && element._time_date > time2) {
+					time2 = element._time_date
+					ans2 = element
+				}
+			});
+
+			return time2 === '0000-01-01 00:01:01.111' ? [ans1] : [ans1, ans2]
 		}
 	}])

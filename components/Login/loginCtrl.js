@@ -7,10 +7,6 @@ angular.module('london_app')
 				$http.post('http://localhost:3000/auth/login', $httpParamSerializerJQLike(self.user), $rootScope.postConfig)
 					.then(function (response) {
 						const data = response.data;
-						if (data.status === 403) {
-							alert('username or password incorrect!');
-							return
-						}
 						if (!data.token) {
 							console.log('missing user\'s token')
 							return
@@ -23,7 +19,20 @@ angular.module('london_app')
 						// gets the user's favourite POIs
 						$http.get("http://localhost:3000/user/getUserFavourites/" + self.user.username, $rootScope.tokenHeaderConfig(self.user.username))
 							.then(function (response) {
-								$rootScope.localFav = response.data
+								if (response.data.message) {
+									// do nothing cause there are no favs in the DB
+								} else {
+									response.data.forEach(element => {
+										$rootScope.localFav.push({
+											FK_username: element.FK_username,
+											FK_poi_name: element.FK_poi_name,
+											_time_date: element._time_date.replace('T', ' ').replace('Z', ' '),
+											img: $rootScope.allPois.filter(p => p.name === element.FK_poi_name)[0].picture,
+											DB: true
+										})
+									});
+									//console.log('FROM DB:', $rootScope.localFav)
+								}
 							},
 								function (error) { }
 							);
@@ -31,7 +40,9 @@ angular.module('london_app')
 						$location.path('/homeUser')
 					},
 						function (response) {
-							alert('Error.')
+							if (response.status === 403) {
+								alert('username or password incorrect!');
+							}
 						}
 					)
 			}
