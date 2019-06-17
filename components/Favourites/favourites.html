@@ -1,4 +1,12 @@
 <style>
+    .orderArrow {
+        font-size:250%; 
+        cursor: pointer;
+    }
+
+    img {
+        
+    }
 </style>
 
 <div>
@@ -9,17 +17,22 @@
                 <th>Picture</th>
             </tr>
         </thead>
-        <tr ng-repeat="x in (afterFilter = (allPois | filter:searchText | filter:category | orderBy:order))">
-            <td class="viewBtn" ng-click="allPOICtrl.open(x)">{{ x.name }}</td>
-            <td class="viewBtn" ng-click="allPOICtrl.open(x)">
+        <tr ng-repeat="x in ( $root.localFav | orderBy:category | orderBy:poiRank )">
+            <td>
+                <div class="orderArrow" ng-click="favsCtrl.moveUp(x)"> &#9650 </div>
+                <div class="orderArrow" ng-click="favsCtrl.moveDown(x)"> &#9660 </div>
+            </td>
+            <td class="viewBtn" ng-click="favsCtrl.open(x)">{{ x.name }}</td>
+            <td class="viewBtn" ng-click="favsCtrl.open(x)">
                 <img ng-src="{{ x.picture }}" height="250" width="450" />
             </td>
+
             <!-- Like / Dislike -->
             <td ng-if="$root.isLoggedIn">
-                <img src="misc\heartreg.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
-                    ng-show="!allPOICtrl.checkIfinFav(x)" />
-                <img src="misc\heartfav.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
-                    ng-show="allPOICtrl.checkIfinFav(x)" />
+                <img src="misc\trash.png" width="100" height="100" ng-click="favsCtrl.saveInFavLocalList(x)"
+                ng-show="!favsCtrl.checkIfinFav(x)" />
+                <img src="misc\trash.png" width="100" height="100" ng-click="favsCtrl.saveInFavLocalList(x)"
+                    ng-show="favsCtrl.checkIfinFav(x)" />
             </td>
             <!-- Like / Dislike -->
 

@@ -19,6 +19,15 @@ angular.module('london_app')
 						tokenStorage.addUserToken(self.user.username, data.token) //saves the token in localstorage
 						$rootScope.isLoggedIn = true
 						$rootScope.loggedUser = self.user.username
+
+						// gets the user's favourite POIs
+						$http.get("http://localhost:3000/user/getUserFavourites/" + self.user.username, $rootScope.tokenHeaderConfig(self.user.username))
+							.then(function (response) {
+								$rootScope.localFav = response.data
+							},
+								function (error) { }
+							);
+
 						$location.path('/homeUser')
 					},
 						function (response) {

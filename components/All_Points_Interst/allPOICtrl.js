@@ -31,14 +31,14 @@ angular.module("london_app").controller("allPointsofInterstController", [
       }
     };
 
-    self.getUserFavourites = function () {
-      $http.get("http://localhost:3000/user/getUserFavourites/" + $rootScope.loggedUser, $rootScope.tokenHeaderConfig($rootScope.loggedUser))
-        .then(function (response) {
-          console.log(response);
-        },
-          function (error) { }
-        );
-    }
+    // self.getUserFavourites = function () {
+    //   $http.get("http://localhost:3000/user/getUserFavourites/" + $rootScope.loggedUser, $rootScope.tokenHeaderConfig($rootScope.loggedUser))
+    //     .then(function (response) {
+    //       console.log(response);
+    //     },
+    //       function (error) { }
+    //     );
+    // }
 
     $http.get("http://localhost:3000/user/poi/getAll_POI").then(
       function (response) {
