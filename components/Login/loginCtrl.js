@@ -15,6 +15,7 @@ angular.module('london_app')
 							console.log('missing user\'s token')
 							return
 						}
+						// tokenStorage.setHeadersToken(data.token)
 						tokenStorage.addUserToken(self.user.username, data.token) //saves the token in localstorage
 						$rootScope.isLoggedIn = true
 						$rootScope.loggedUser = self.user.username
