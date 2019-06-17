@@ -7,6 +7,10 @@ angular.module("london_app").controller("allPointsofInterstController", [
   function($scope, $rootScope, $http, $location, ModalService) {
     let self = this;
 
+    self.gotoFAV = function(){
+      $location.path('/favs')
+    } 
+    
     /** saves in the local favorite list the POI's */
     self.saveInFavLocalList = function(POi) {
       if ($rootScope.localFav.filter(value => value.name == POi.name).length > 0) {

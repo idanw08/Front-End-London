@@ -1,7 +1,7 @@
 <h1><span>All Points Of Interest In London</span></h1>
 <br />
 <p ng-model="localFav.length" ng-if="$root.isLoggedIn">You saved {{ localFav.length }} places in london!</p>
-<p ng-if="$root.isLoggedIn">Just click on the icon to see your favorite places in London.<img src="misc\favoritefolder.png" ng-click="allPOICtrl.test()"/>
+<p ng-if="$root.isLoggedIn">Just click on the icon to see your favorite places in London.<img src="misc\favoritefolder.png" ng-click="allPOICtrl.gotoFAV()"/>
 </p>
 <div>
   You can choose the category of the points of views you looking for :
