@@ -33,6 +33,14 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 		}
 		XHR.send()
 
+		$http.get("http://localhost:3000/user/poi/getAll_POI").then(
+			function (response) {
+				let data = response.data;
+				$rootScope.allPois = data;
+			},
+			function (error) { }
+		);
+
 		$rootScope.tokenHeaderConfig = function (key) {
 			let token = tokenStorage.getUserToken(key)
 			return {
@@ -47,6 +55,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 				tokenStorage.removeUserToken($rootScope.loggedUser)
 				$rootScope.isLoggedIn = false
 				$rootScope.loggedUser = 'Guest'
+				$rootScope.localFav = []
 				$location.path('/')
 			}
 		}
