@@ -31,8 +31,8 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 			let token = tokenStorage.getUserToken(key)
 			return {
 				headers: {
-					'Authorization': `Bearer ${token}`
- 				}
+					'authorization': `Bearer ${token}`
+				}
 			}
 		}
 
@@ -53,20 +53,6 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 				$compile(el)($scope)
 			})
 		}
-
-		// $rootScope.updatedPOIview = function (poi) {
-		// 	$http.post('http://localhost:3000/guest/poi/addPOIview', $httpParamSerializerJQLike(poi), $rootScope.postConfig)
-		// 		.then(function (response) {
-		// 			$http.get('http://localhost:3000/user/poi/getAll_POI')
-		// 				.then(
-		// 					function (response) {
-		// 						let data = response.data
-		// 						$rootScope.allPois = data;
-		// 					},
-		// 					function (error) { }
-		// 				)
-		// 		}, function (error) { })
-		// }
 
 		self.closeModal = function () {
 			document.getElementById('modal-dialog').style.display = 'none';
