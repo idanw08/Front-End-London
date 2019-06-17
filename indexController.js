@@ -32,7 +32,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 			return {
 				headers: {
 					'Authorization': `Bearer ${token}`
-				}
+ 				}
 			}
 		}
 
