@@ -32,10 +32,9 @@
 			<li><a class="menuBtns" href="#!/about">About</a></li>
 			<li><a class="menuBtns" href="#!/poi">POI</a></li>
 			<li><a class="menuBtns" ng-if="!$root.isLoggedIn" href="#!/login">Login</a></li>
-			<li><a class="menuBtns" ng-if="$root.isLoggedIn" ng-click="$root.logout()"
-					style="cursor: pointer">Logout</a></li>
 			<li><a class="menuBtns" ng-if="!$root.isLoggedIn" href="#!/register"> Register </a></li>
 			<li><a class="menuBtns" ng-if="$root.isLoggedIn" href="#!/favs">Favourites</a></li>
+			<li><a class="menuBtns" ng-if="$root.isLoggedIn" ng-click="$root.logout()"style="font-weight: bold; color:pink ; cursor: pointer"> Logout</a></li>
 			<li style="float: right; cursor: default"><a> Hello {{$root.loggedUser}} </a></li>
 		</ul>
 

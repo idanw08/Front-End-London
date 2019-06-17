@@ -2,5 +2,27 @@
 </style>
 
 <div>
-	
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Picture</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="x in (afterFilter = (allPois | filter:searchText | filter:category | orderBy:order))">
+            <td class="viewBtn" ng-click="allPOICtrl.open(x)">{{ x.name }}</td>
+            <td class="viewBtn" ng-click="allPOICtrl.open(x)">
+                <img ng-src="{{ x.picture }}" height="250" width="450" />
+            </td>
+            <!-- Like / Dislike -->
+            <td ng-if="$root.isLoggedIn">
+                <img src="misc\heartreg.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
+                    ng-show="!allPOICtrl.checkIfinFav(x)" />
+                <img src="misc\heartfav.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
+                    ng-show="allPOICtrl.checkIfinFav(x)" />
+            </td>
+            <!-- Like / Dislike -->
+
+        </tr>
+    </table>
 </div>

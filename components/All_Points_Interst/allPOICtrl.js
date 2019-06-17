@@ -18,6 +18,7 @@ angular.module("london_app").controller("allPointsofInterstController", [
         if (i > -1) $rootScope.localFav.splice(i, 1);
       } else {
         $rootScope.localFav.push(POi);
+        console.log($rootScope.localFav)
       }
     };
 
@@ -30,8 +31,8 @@ angular.module("london_app").controller("allPointsofInterstController", [
       }
     };
 
-    self.test = function () {
-      $http.get("http://localhost:3000/user/getUserFavourites/" + $rootScope.loggedUser, $rootScope.tokenHeaderConfig())
+    self.getUserFavourites = function () {
+      $http.get("http://localhost:3000/user/getUserFavourites/" + $rootScope.loggedUser, $rootScope.tokenHeaderConfig($rootScope.loggedUser))
         .then(function (response) {
           console.log(response);
         },
