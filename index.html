@@ -34,7 +34,8 @@
 			<li><a class="menuBtns" ng-if="!$root.isLoggedIn" href="#!/login">Login</a></li>
 			<li><a class="menuBtns" ng-if="!$root.isLoggedIn" href="#!/register"> Register </a></li>
 			<li><a class="menuBtns" ng-if="$root.isLoggedIn" href="#!/favs">Favourites</a></li>
-			<li><a class="menuBtns" ng-if="$root.isLoggedIn" ng-click="$root.logout()"style="font-weight: bold; color:pink ; cursor: pointer"> Logout</a></li>
+			<li><a class="menuBtns" ng-if="$root.isLoggedIn" ng-click="$root.logout()"
+					style="font-weight: bold; color:pink ; cursor: pointer"> Logout</a></li>
 			<li style="float: right; cursor: default"><a> Hello {{$root.loggedUser}} </a></li>
 		</ul>
 
@@ -42,7 +43,7 @@
 
 		<div id="modal-dialog">
 			<header class="modalHeader">
-				<h4 id="poiName"></h4>	
+				<h4 id="poiName"></h4>
 				<button id="X" ng-click="idxCtrl.closeModal()" class="modalHeader">X</button>
 			</header>
 			<br><br><br>
@@ -57,13 +58,63 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<label>Rating: <span id="poiRating"></span>% People like this!</label>
-						</div>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</div><br><br>
+						<button ng-if="$root.isLoggedIn" ng-click="idxCtrl.toggle() ; myTextarea = '' ; reviewRank = '' "
+							ng-show="!idxCtrl.myVar">Add new review</button>
+
 					</div>
 				</div>
 				<br>
-				<label><u> Comments </u></label>
-				<div id="comments">
-					<!-- TODO: here will be the comments section -->
+				<div ng-show="idxCtrl.myVar">
+					<h3>Share with us what you think about {{idxCtrl.poiName}}!</h3>
+					<div>
+						<textarea id="reviewText" ng-model="myTextarea" rows="10" cols="100" resize="none"></textarea>
+					</div>
+					<div>
+						<fieldset class="rating">
+							<input ng-model="reviewRank" type="radio" id="star5" name="rating" value="5" /><label
+								class="full" for="star5" title="Awesome - 5 stars"></label>
+							<input ng-model="reviewRank" type="radio" id="star4" name="rating" value="4" /><label
+								class="full" for="star4" title="Pretty good - 4 stars"></label>
+							<input ng-model="reviewRank" type="radio" id="star3" name="rating" value="3" /><label
+								class="full" for="star3" title="Meh - 3 stars"></label>
+							<input ng-model="reviewRank" type="radio" id="star2" name="rating" value="2" /><label
+								class="full" for="star2" title="Kinda bad - 2 stars"></label>
+							<input ng-model="reviewRank" type="radio" id="star1" name="rating" value="1" /><label
+								class="full" for="star1" title="Sucks big time - 1 star"></label>
+						</fieldset>
+					</div>
+					<br>
+					<button ng-click="idxCtrl.addReview(idxCtrl.poiName,myTextarea,reviewRank); idxCtrl.myVar = false">Submit</button>
+					<button ng-click="idxCtrl.toggle()" ng-show="idxCtrl.myVar">Cancel</button>
+				</div>
+				<div ng-show="!idxCtrl.myVar" id="comments">
+					<h5>Comments</h5>
+					<!-- <table id="comments">
+						<thead>
+							<tr>
+								<th>Review</th>
+								<th>Rank</th>
+							</tr>
+						</thead>
+					</table> -->
+
+
+					 <table>
+						<thead>
+							<tr>
+									<th>Rank</th>
+								<th>Review</th>
+							</tr>
+						</thead>
+						<tr ng-repeat="sdfs in idxCtrl.ModalService.zibi">
+							<td>{{ sdfs.rankVal }}</td>
+							<td>{{ sdfs.review_content }}</td>
+
+						</tr>
+					</table> 
 				</div>
 			</div>
 		</div>
