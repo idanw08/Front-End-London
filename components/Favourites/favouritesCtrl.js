@@ -60,23 +60,27 @@ angular.module('london_app')
 			}
 
 			self.moveUp = function (poi) {
+				// document.getElementById("sorter").selectedIndex = "0"
+				// self.order = "none"
+				// $filter('orderBy')($root.localFav, "order")
 				const idx = $rootScope.localFav.indexOf(poi)
 				if (idx === 0) return
 
 				const tmp = $rootScope.localFav[idx - 1]
 				$rootScope.localFav[idx - 1] = poi
 				$rootScope.localFav[idx] = tmp
-				console.log('UP', $rootScope.localFav)
 			}
 
 			self.moveDown = function (poi) {
+				// document.getElementById("sorter").selectedIndex = "0"
+				// self.order = "none"
+				// $filter('orderBy')($root.localFav, "order")
 				const idx = $rootScope.localFav.indexOf(poi)
 				if (idx === $rootScope.localFav.length - 1) return
 
 				const tmp = $rootScope.localFav[idx + 1]
 				$rootScope.localFav[idx + 1] = poi
 				$rootScope.localFav[idx] = tmp
-				console.log('DOWN', $rootScope.localFav)
 			}
 
 			self.open = function (poiName) {

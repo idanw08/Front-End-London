@@ -22,6 +22,8 @@ angular.module("london_app").controller("allPointsofInterstController", [
           FK_poi_name: POi.name,
           _time_date: new Date().toISOString().replace('T', ' ').replace('Z', ' '),
           img: $rootScope.allPois.filter(p => p.name === POi.name)[0].picture,
+          category: $rootScope.allPois.filter(p => p.name === POi.name)[0].category,
+          poiRank: $rootScope.allPois.filter(p => p.name === POi.name)[0].poiRank,
           DB: false
         });
         console.log('ADDED FAVS:', $rootScope.localFav)

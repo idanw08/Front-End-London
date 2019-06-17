@@ -2,19 +2,30 @@
     .pointer {
         cursor: pointer;
     }
+
     .orderArrow {
-        font-size:250%; 
+        font-size: 250%;
         cursor: pointer;
     }
 </style>
 
 <div>
+    <label>Sort by:</label>
+    <select id="sorter" ng-model="order">
+        <option value="none" selected>All</option>
+        <option disabled hidden style='display: none' value=''></option>
+        <option value="poiRank">Rank</option>
+        <option value="category">Category</option>
+    </select>
+    <br>
+    <button ng-if="favsCtrl.haveFavs" ng-click="favsCtrl.saveInDB()">Save favourites in DB</button>
+    <br>
+
     <table>
         <tr colspan="4" ng-if="favsCtrl.haveFavs">
-            <button ng-if="favsCtrl.haveFavs" ng-click="favsCtrl.saveInDB()">Save favourites in DB</button>
             <p ng-if="!favsCtrl.haveFavs">No favourites saved!</p>
         </tr>
-        <tr ng-repeat="x in ( $root.localFav | orderBy:category | orderBy:poiRank )">
+        <tr ng-repeat="x in $root.localFav | orderBy: order">
             <!-- UP / DOWN ARROWS -->
             <td>
                 <div class="orderArrow" ng-click="favsCtrl.moveUp(x)"> &#9650 </div>
@@ -23,7 +34,7 @@
 
             <!-- POI NAME -->
             <td class="pointer" ng-click="favsCtrl.open(x.FK_poi_name)">{{ x.FK_poi_name }}</td>
-            
+
             <!-- POI IMAGE -->
             <td class="pointer" ng-click="favsCtrl.open(x.FK_poi_name)">
                 <img ng-src="{{ x.img }}" height="200" width="350" />
@@ -31,9 +42,9 @@
 
             <!-- REMOVE FAVOURITE -->
             <td ng-if="$root.isLoggedIn">
-                <img class="pointer" src="misc\trash.png" width="70" height="70" ng-click="favsCtrl.removeFrom_FavLocalList(x)"/>
+                <img class="pointer" src="misc\trash.png" width="70" height="70"
+                    ng-click="favsCtrl.removeFrom_FavLocalList(x)" />
             </td>
-
         </tr>
     </table>
 </div>

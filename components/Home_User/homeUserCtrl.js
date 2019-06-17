@@ -93,7 +93,7 @@ angular.module('london_app')
 		}
 
 		function createTD(data, i) {
-			console.log(data)
+			// console.log(data)
 			let td = document.createElement('td')
 			let label = document.createElement('label')
 			let text

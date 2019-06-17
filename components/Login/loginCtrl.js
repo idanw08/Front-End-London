@@ -8,7 +8,7 @@ angular.module('london_app')
 					.then(function (response) {
 						const data = response.data;
 						if (!data.token) {
-							console.log('missing user\'s token')
+							alert('username or password incorrect!');
 							return
 						}
 						// tokenStorage.setHeadersToken(data.token)
@@ -28,6 +28,8 @@ angular.module('london_app')
 											FK_poi_name: element.FK_poi_name,
 											_time_date: element._time_date.replace('T', ' ').replace('Z', ' '),
 											img: $rootScope.allPois.filter(p => p.name === element.FK_poi_name)[0].picture,
+											category: $rootScope.allPois.filter(p => p.name === element.FK_poi_name)[0].category,
+											poiRank: $rootScope.allPois.filter(p => p.name === element.FK_poi_name)[0].poiRank,
 											DB: true
 										})
 									});
