@@ -1,14 +1,20 @@
 angular.module('london_app').controller('indexController', ['$rootScope', '$scope', 'tokenStorage', '$location', 'ModalService', '$http', '$httpParamSerializerJQLike',
 	function ($rootScope, $scope, tokenStorage, $location, ModalService, $http, $httpParamSerializerJQLike) {
+		let self = this
 		$rootScope.postConfig = {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
 		};
+		self.ModalService = ModalService
 		$rootScope.isLoggedIn = false
 		$rootScope.loggedUser = 'Guest'
 		$rootScope.allPois = []
-        $rootScope.localFav=[];
+		$rootScope.localFav = []
+
+		self.myVar = false
+		self.poiName = ''
+		self.rev = []
 
 		let XHR = new XMLHttpRequest()
 		XHR.open("GET", "countries.xml", true)
@@ -27,6 +33,14 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 		}
 		XHR.send()
 
+		$http.get("http://localhost:3000/user/poi/getAll_POI").then(
+			function (response) {
+				let data = response.data;
+				$rootScope.allPois = data;
+			},
+			function (error) { }
+		);
+
 		$rootScope.tokenHeaderConfig = function (key) {
 			let token = tokenStorage.getUserToken(key)
 			return {
@@ -41,6 +55,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 				tokenStorage.removeUserToken($rootScope.loggedUser)
 				$rootScope.isLoggedIn = false
 				$rootScope.loggedUser = 'Guest'
+				$rootScope.localFav = []
 				$location.path('/')
 			}
 		}
@@ -55,15 +70,47 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 		}
 
 		self.closeModal = function () {
+			self.poiName = ''
+			self.myVar = false
 			document.getElementById('modal-dialog').style.display = 'none';
 			document.body.style = 'background-color: white';
 			ModalService.isOpen = false
 		}
 
-		document.onclick = function (e) {
+		self.toggle = function () {
+
+			self.poiName = ModalService.getPOIname()
+			self.myVar = !self.myVar
+		}
+
+		self.addReview = function (poiName, reviewContent, rankValue) {
+			let newReview = {
+				poi_name: poiName,
+				review_content: reviewContent,
+				rankVal: rankValue
+			}
+			let revConfig = {
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+					'Authorization': `Bearer ${tokenStorage.getUserToken($rootScope.loggedUser)}`
+				}
+			};
+			$http.post('http://localhost:3000/guest/poi/addPOIreview', $httpParamSerializerJQLike(newReview), revConfig)
+				.then(
+					function (response) {
+
+					},
+					function (error) {
+						alert('Error!!.')
+					}
+				)
+		}
+
+		  document.onclick = function (e) {
+			self.poiName = ModalService.getPOIname()
 			let modal = document.getElementById('modal-dialog')
-			if (!(e.target === modal || (modal.contains(e.target) && e.target!==document.getElementById('X')))) {
+			if (!(e.target === modal || (modal.contains(e.target) && e.target !== document.getElementById('X')))) {
 				self.closeModal()
-			} 
+			}
 		}
 	}]);

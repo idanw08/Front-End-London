@@ -21,10 +21,8 @@
   <br />
   Sort By :
   <select ng-model="order">
-    <option value="">Name</option>
     <option value="poiRank">Rank</option>
-    <!-- <option value="numViews">Num of Views</option> -->
-    <option value="category">Category</option>
+    <option value="numViews">Num of Views</option>
   </select>
   <br />
   <br />
@@ -39,7 +37,7 @@
         <th>Picture</th>
       </tr>
     </thead>
-    <tr ng-repeat="x in (afterFilter = (allPois | filter:searchText | filter:category | orderBy:order))">
+    <tr ng-repeat="x in (afterFilter = (allPois | filter:searchText | filter:category | orderBy:order:true))">
       <td class="viewBtn" ng-click="allPOICtrl.open(x)">{{ x.name }}</td>
       <td>{{ x.poiRank }}</td>
       <td>{{ (x.category == "Night_Life") ? "Night Life" : x.category }}</td>
@@ -50,8 +48,7 @@
       </td>
       <!-- Like / Dislike -->
       <td ng-if="$root.isLoggedIn">
-        <img src="misc\heartreg.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
-          ng-show="!allPOICtrl.checkIfinFav(x)" />
+        <img src="misc\heartreg.png" ng-click="allPOICtrl.saveInFavLocalList(x)" ng-show="!allPOICtrl.checkIfinFav(x)" />
         <img src="misc\heartfav.png" ng-click="allPOICtrl.saveInFavLocalList(x)" ng-show="allPOICtrl.checkIfinFav(x)" />
       </td>
       <!-- Like / Dislike -->

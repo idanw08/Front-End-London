@@ -2,39 +2,49 @@
     .pointer {
         cursor: pointer;
     }
+
     .orderArrow {
-        font-size:250%; 
+        font-size: 250%;
         cursor: pointer;
     }
 </style>
 
 <div>
+    <label>Sort by:</label>
+    <select id="sorter" ng-model="order">
+        <option value="none" selected>All</option>
+        <option disabled hidden style='display: none' value=''></option>
+        <option value="poiRank">Rank</option>
+        <option value="category">Category</option>
+    </select>
+    <br>
+    <button ng-if="favsCtrl.haveFavs" ng-click="favsCtrl.saveInDB()">Save favourites in DB</button>
+    <br>
+
     <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Picture</th>
-            </tr>
-        </thead>
-        <tr ng-repeat="x in ( $root.localFav | orderBy:category | orderBy:poiRank )">
+        <tr colspan="4" ng-if="favsCtrl.haveFavs">
+            <p ng-if="!favsCtrl.haveFavs">No favourites saved!</p>
+        </tr>
+        <tr ng-repeat="x in $root.localFav | orderBy: order">
+            <!-- UP / DOWN ARROWS -->
             <td>
                 <div class="orderArrow" ng-click="favsCtrl.moveUp(x)"> &#9650 </div>
                 <div class="orderArrow" ng-click="favsCtrl.moveDown(x)"> &#9660 </div>
             </td>
-            <td class="pointer" ng-click="favsCtrl.open(x)">{{ x.name }}</td>
-            <td class="pointer" ng-click="favsCtrl.open(x)">
-                <img ng-src="{{ x.picture }}" height="200" width="350" />
+
+            <!-- POI NAME -->
+            <td class="pointer" ng-click="favsCtrl.open(x.FK_poi_name)">{{ x.FK_poi_name }}</td>
+
+            <!-- POI IMAGE -->
+            <td class="pointer" ng-click="favsCtrl.open(x.FK_poi_name)">
+                <img ng-src="{{ x.img }}" height="200" width="350" />
             </td>
 
-            <!-- Like / Dislike -->
+            <!-- REMOVE FAVOURITE -->
             <td ng-if="$root.isLoggedIn">
-                <!-- <img src="misc\trash.png" width="100" height="100" ng-click="favsCtrl.saveInFavLocalList(x)"
-                ng-show="!favsCtrl.checkIfinFav(x)" /> -->
-                <img class="pointer" src="misc\trash.png" width="70" height="70" ng-click="favsCtrl.saveInFavLocalList(x)"
-                    ng-show="favsCtrl.checkIfinFav(x)" />
+                <img class="pointer" src="misc\trash.png" width="70" height="70"
+                    ng-click="favsCtrl.removeFrom_FavLocalList(x)" />
             </td>
-            <!-- Like / Dislike -->
-
         </tr>
     </table>
 </div>
