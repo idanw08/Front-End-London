@@ -1,73 +1,157 @@
-<div>
-	<form name='regForm' id='regForm' ng-submit='registerCtrl.submitRegister(regForm.$valid)' novalidate>
-		<!-- USERNAME -->
-		<label>Username:</label>
-		<input type="text" name="username" ng-model="registerCtrl.username" ng-minlength='3' ng-maxlength='8' ng-pattern="/^[a-zA-Z]*$/" required>
-		<span ng-show="regForm.username.$dirty && regForm.username.$error.required">Enter username.</span>
-		<span ng-show="regForm.username.$error.maxlength || regForm.username.$error.minlength || regForm.username.$error.pattern">Enter 3-8 alphabetical characters.</span>
-		<br>
-		<!-- PASSWORD -->
-		<label>Password:</label>
-		<input type="password" name="password" ng-model="registerCtrl.password" ng-minlength='5' ng-maxlength='10' ng-pattern="/^[0-9a-zA-Z]*$/" required>
-		<span ng-show="regForm.password.$dirty && regForm.password.$error.required">Enter password.</span>
-		<span ng-show="regForm.password.$error.maxlength || regForm.password.$error.minlength || regForm.password.$error.pattern">Enter 5-10 alphanumeric characters.</span>
-		<br>
-		<!-- FIRST NAME -->
-		<label for="firstName">First Name:</label>
-		<input type="text" name="firstName" ng-model="registerCtrl.firstName" ng-pattern="/^[ a-zA-Z]*$/" required>
-		<span ng-show="regForm.firstName.$dirty && regForm.firstName.$error.required">Enter a valid first name.</span>
-		<span ng-show="regForm.firstName.$error.pattern">only letters!</span>
-		<br>
-		<!-- LAST NAME -->
-		<label for="lastName">Last Name:</label>
-		<input type="text" name="lastName" ng-model="registerCtrl.lastName" ng-pattern="/^[ a-zA-Z]*$/" required>
-		<span ng-show="regForm.lastName.$dirty && regForm.lastName.$error.required">Enter a valid last name</span>
-		<span ng-show="regForm.lastName.$error.pattern">only letters!</span>
-		<br>
-		<!-- CITY -->
-		<label for="city">City:</label>
-		<input type="text" name="city" ng-model="registerCtrl.city" ng-pattern="/^[ a-zA-Z]*$/" required>
-		<span ng-show="regForm.city.$dirty && regForm.city.$error.required">Enter a valid city name</span>
-		<span ng-show="regForm.city.$error.pattern">only letters!</span>
-		<br>
-		<!-- COUNTRY -->
-		<label for="countries">Country:</label>
-		<select id="countries" name="countries" form="regForm" ng-model="registerCtrl.country" 
-			ng-options="country as country.name for country in countries track by country.id" required autofocus>
-			<option id="defaultOption" value="" selected></option>
-		</select>
-		<span ng-hide="regForm.countries.$error.required"></span>
-		<br>
-		<!-- EMAIL -->
-		<label for="email">Email:</label>
-		<input type="email" name="email" ng-model="registerCtrl.email" required>
-		<span ng-show="regForm.email.$error.email">Enter a valid email address.</span>
-		<span ng-show="regForm.email.$dirty && regForm.email.$error.required">Enter email address!</span>
-		<br><br>
-		<!-- FAVOURITES -->
-		<label for="categories"><u>Select favourite categories:</u></label>
-		<span ng-hide="registerCtrl.validateMin2Cats()">&nbsp;&nbsp; (Select at least 2 categories!)</span><br>
-		<label for="categories" ng-repeat="cat in registerCtrl.cats"><br>
-			<input type="checkbox" name="categories" ng-click="registerCtrl.checkedCategory(cat.id)"> {{cat.name}} 
-		</label>
-		<br><br>
-		<label><u>Password Recovery Questions:</u></label>
-		<span ng-hide="registerCtrl.verifyQuestions()">&nbsp;&nbsp;	(Answer at least two questions!)</span>
-		<br><br>
-		<!-- MOM NAME -->
-		<label for="momOriginLastName">momOriginLastName:</label>
-		<input type="text" name="momOriginLastName" ng-model="registerCtrl.momOriginLastName"><br>
-		<!-- ELEM SCHOOL -->
-		<label for="elementarySchoolName">elementarySchoolName:</label>
-		<input type="text" name="elementarySchoolName" ng-model="registerCtrl.elementarySchoolName"><br>
-		<!-- FAV COLOR -->
-		<label for="favouriteColor">favouriteColor:</label>
-		<input type="text" name="favouriteColor" ng-model="registerCtrl.favouriteColor"><br>
-		<!-- BFF -->
-		<label for="childhoodBFF">childhoodBFF:</label>
-		<input type="text" name="childhoodBFF" ng-model="registerCtrl.childhoodBFF"><br>
-		<br><br>
+<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+	</head>
+<div class="bg-light border rounded border-dark shadow-lg"
+	style="width: 960px;height: 580px;margin-top: 1%;margin-left: 13%;padding-top: 40px;padding-right: 20px;padding-bottom: 40px;padding-left: 20px;background-color: rgba(248,249,250,0);">
+	<label class="text-uppercase d-flex justify-content-xl-center"
+		style="font-family: Montserrat, sans-serif;font-size: 45px;"><img src="misc\around-the-globe.png"
+			style="margin-top: -18px;margin-right: 23px;">create new account<img src="misc\luggage.png"
+			style="margin-top: -46px;margin-left: 45px;"></label>
+	<form class="text-left" style="width: 941;padding-left: 22px;height: 390px;" name='regForm' id='regForm'
+		ng-submit='registerCtrl.submitRegister(regForm.$valid)' novalidate>
+		<div style="width: 300px;height: 340px;">
+			<!-- USERNAME -->
+			<div class="form-group"><label class="text-uppercase"
+					style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;">Username</label>
+				<input class="border rounded shadow-lg form-control"
+					style="width: 240px;font-family: Montserrat, sans-serif;height: 30px;" type="text" name="username"
+					ng-model="registerCtrl.username" ng-minlength='3' ng-maxlength='8' ng-pattern="/^[a-zA-Z]*$/"
+					required>
+				<span ng-show="regForm.username.$dirty && regForm.username.$error.required">Enter username.</span>
+				<span
+					ng-show="regForm.username.$error.maxlength || regForm.username.$error.minlength || regForm.username.$error.pattern">Enter
+					3-8 alphabetical characters.</span>
+			</div>
+			<!-- PASSWORD -->
+			<div class="form-group"><label class="text-uppercase"
+					style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;">Password</label>
+				<input class="border rounded shadow-lg form-control"
+					style="width: 240px;font-family: Montserrat, sans-serif;height: 30px;" type="password"
+					name="password" ng-model="registerCtrl.password" ng-minlength='5' ng-maxlength='10'
+					ng-pattern="/^[0-9a-zA-Z]*$/" required>
+				<span ng-show="regForm.password.$dirty && regForm.password.$error.required">Enter password.</span>
+				<span
+					ng-show="regForm.password.$error.maxlength || regForm.password.$error.minlength || regForm.password.$error.pattern">Enter
+					5-10 alphanumeric characters.</span>
+			</div>
+			<!-- FIRST NAME -->
+			<div class="form-group"><label class="text-uppercase"
+					style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;"
+					for="firstName">First
+					Name</label>
+				<input class="border rounded shadow-lg form-control"
+					style="width: 240px;font-family: Montserrat, sans-serif;height: 30px;" type="text" name="firstName"
+					ng-model="registerCtrl.firstName" ng-pattern="/^[ a-zA-Z]*$/" required>
+				<span ng-show="regForm.firstName.$dirty && regForm.firstName.$error.required">Enter a valid first
+					name.</span>
+				<span ng-show="regForm.firstName.$error.pattern">only letters!</span>
+			</div>
+			<!-- LAST NAME -->
+			<div class="form-group"><label class="text-uppercase"
+					style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;" for="lastName">Last
+					Name</label>
+				<input class="border rounded shadow-lg form-control"
+					style="width: 240px;font-family: Montserrat, sans-serif;height: 30px;" type="text" name="lastName"
+					ng-model="registerCtrl.lastName" ng-pattern="/^[ a-zA-Z]*$/" required>
+				<span ng-show="regForm.lastName.$dirty && regForm.lastName.$error.required">Enter a valid last
+					name</span>
+				<span ng-show="regForm.lastName.$error.pattern">only letters!</span>
+			</div>
+		</div>
+		<div style="margin-left: 300px;margin-top: -340px;width: 300px;height: 340px;">
+						<!-- EMAIL -->
+						<div class="form-group"><label class="text-uppercase"
+							style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;"
+							for="email">Email</label>
+						<input class="border rounded shadow-lg form-control"
+							style="width: 240px;font-family: Montserrat, sans-serif;height: 30px;" type="email" name="email"
+							ng-model="registerCtrl.email" required>
+						<span ng-show="regForm.email.$error.email">Enter a valid email address.</span>
+						<span ng-show="regForm.email.$dirty && regForm.email.$error.required">Enter email address!</span>
+					</div>
+			<!-- COUNTRY -->
+			<div class="form-group"><label class="text-uppercase"
+					style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;"
+					for="countries">Country</label>
+				<select class="form-control" style="width: 240px;height: 30px;padding-top: 0px;" id="countries"
+					name="countries" form="regForm" ng-model="registerCtrl.country"
+					ng-options="country as country.name for country in countries track by country.id" required
+					autofocus>
+					<option id="defaultOption" value="" selected></option>
+				</select>
+				<span ng-hide="regForm.countries.$error.required"></span>
+			</div>
+			<!-- CITY -->
+			<div class="form-group"><label class="text-uppercase"
+					style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;"
+					for="city">City</label>
+				<input class="border rounded shadow-lg form-control"
+					style="width: 240px;font-family: Montserrat, sans-serif;height: 30px;" type="text" name="city"
+					ng-model="registerCtrl.city" ng-pattern="/^[ a-zA-Z]*$/" required>
+				<span ng-show="regForm.city.$dirty && regForm.city.$error.required">Enter a valid city name</span>
+				<span ng-show="regForm.city.$error.pattern">only letters!</span>
+			</div>
+			<!-- FAVOURITES -->
+			<div class="form-group"><label class="text-uppercase"
+					style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;"
+					for="categories"><u>Select
+						favourite categories</u></label>
+				<span ng-hide="registerCtrl.validateMin2Cats()">(Select at least 2 categories!)</span>
+				<div style="width: 100px">
+					<label style="font-family: Montserrat, sans-serif;" for="categories"
+						ng-repeat="cat in registerCtrl.cats">
+						<input type="checkbox" name="categories" ng-click="registerCtrl.checkedCategory(cat.id)">
+						{{cat.name}}
+					</label>
+				</div>
+			</div>
+		</div>
+		<div style="width: 300px;margin-top: -340px;margin-left: 600px;height: 340px;">
+			<label class="text-uppercase" style="font-family: Montserrat, sans-serif;font-size: 16px;"><span
+					style="text-decoration: underline;">Password Recovery Questions</span></label>
+			<span ng-hide="registerCtrl.verifyQuestions()">(Answer at least two questions!)</span>
+			<br><br>
+			<!-- MOM NAME -->
+			<div class="form-group">
+				<label style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;"
+					for="momOriginLastName">Your Mother
+					Origin Last Name<br></label>
+				<input class="border rounded shadow-lg form-control"
+					style="width: 240px;font-family: Montserrat, sans-serif;height: 30px;" type="text"
+					name="momOriginLastName" ng-model="registerCtrl.momOriginLastName">
+			</div>
+			<!-- ELEM SCHOOL -->
+			<div class="form-group">
+					<label style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;"
+					 for="elementarySchoolName">Your Elementary
+					 School Name<br></label>
+					 <input class="border rounded shadow-lg form-control"
+					style="width: 240px;font-family: Montserrat, sans-serif;height: 30px;" type="text"
+					name="elementarySchoolName" ng-model="registerCtrl.elementarySchoolName">
+			</div>
+			<!-- FAV COLOR -->
+			<div class="form-group">
+					<label style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;"
+					for="favouriteColor">Your Favourite
+					Color<br></label>
+					<input class="border rounded shadow-lg form-control"
+					style="width: 240px;font-family: Montserrat, sans-serif;height: 30px;" type="text"
+					name="favouriteColor" ng-model="registerCtrl.favouriteColor">
+			</div>
+			<!-- BFF -->
+			<div class="form-group">
+					<label style="font-family: Montserrat, sans-serif;font-size: 16px;margin-bottom: 0px;"
+					for="childhoodBFF">Your Childhood
+					Best Friend Name<br></label>
+					<input class="border rounded shadow-lg form-control"
+					style="width: 240px;font-family: Montserrat, sans-serif;height: 30px;"
+					name="childhoodBFF" ng-model="registerCtrl.childhoodBFF">
+			</div>
+		</div>
+		<div class="btn-group" role="group" style="margin-bottom: -100px;width: 110px;margin-left: 670px;">
 		<!-- SUBMIT -->
-		<button type="submit" ng-disabled="regForm.$invalid">Register</button>
+		<button class="btn btn-primary border rounded shadow-lg tada animated" type="submit" style="background-color: #00b5d6;font-family: Montserrat, sans-serif;font-size: 24px;margin-right: 0px;padding-left: 20px;padding-right: 20px;padding-bottom: 6px;" ng-disabled="regForm.$invalid">Register</button>
+		</div>
 	</form>
 </div>
