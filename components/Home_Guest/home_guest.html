@@ -1,3 +1,7 @@
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+</head>
 <style>
 	.POI:hover {
 		cursor: pointer;
@@ -5,7 +9,8 @@
 </style>
 
 <div style="margin: 30px; display: flex; flex-direction: column; align-items: center">
-	<table style="width: 60%">
+		<h1 class="text-uppercase text-center" style="height: 50px;font-family: Montserrat, sans-serif;font-size: 45px;font-weight: bold">IT'S LONDON TIME</h1>
+		<table style="width: 60% ;font-family: Montserrat, sans-serif;font-size: 20px;">
 		<th colspan="2"> For you to enjoy the beauty of London, please login :) <br>
 			Incase you don't have an account, you are more than welcome to register and enjoy this wonderfull city!  </th>
 		<tr>
@@ -14,35 +19,31 @@
 		</tr>
 		<tr>
 			<td>
-				<button ng-click="homeGuestCtrl.goto('/login')">Login</button>
+				<button class="btn btn-primary border rounded shadow-lg text-uppercase" style="background-color: #1c63aa;font-family: Montserrat, sans-serif;font-size: 24px;" ng-click="homeGuestCtrl.goto('/login')">Login</button>
 			</td>
 			<td>
-				<button ng-click="homeGuestCtrl.goto('/register')">Register</button>
+				<button class="btn btn-primary border rounded shadow-lg text-uppercase" style="background-color: #1c63aa;font-family: Montserrat, sans-serif;font-size: 24px;" ng-click="homeGuestCtrl.goto('/register')">Register</button>
 			</td>
 		</tr>
 	</table>
-
 	<br>
-	<br>
-	<br>
-
 	<table>
 		<tr>
-			<td class="POI" id="poi0" style="border:2px black solid" ng-click="homeGuestCtrl.open(homeGuestCtrl.pois[0])">
+			<td class="POI" id="poi0" style="font-family: Montserrat, sans-serif;font-size: 20px;font-weight: bold" ng-click="homeGuestCtrl.open(homeGuestCtrl.pois[0])">
 				<div>
-					<p>{{homeGuestCtrl.pois[0].name}}</p><br>
+					<p>{{homeGuestCtrl.pois[0].name}}</p>
 					<img src={{homeGuestCtrl.pois[0].picture}} width="400" height="250">
 				</div>
 			</td>
-			<td class="POI" id="poi1" style="border:2px black solid" ng-click="homeGuestCtrl.open(homeGuestCtrl.pois[1])">
+			<td class="POI" id="poi1" style="font-family: Montserrat, sans-serif;font-size: 20px;font-weight: bold" ng-click="homeGuestCtrl.open(homeGuestCtrl.pois[1])">
 				<div>
-					<p>{{homeGuestCtrl.pois[1].name}}</p><br>
+					<p>{{homeGuestCtrl.pois[1].name}}</p>
 					<img src={{homeGuestCtrl.pois[1].picture}} width="400" height="250">
 				</div>
 			</td>
-			<td class="POI" id="poi2" style="border:2px black solid" ng-click="homeGuestCtrl.open(homeGuestCtrl.pois[2])">
+			<td class="POI" id="poi2" style="font-family: Montserrat, sans-serif;font-size: 20px;font-weight: bold" ng-click="homeGuestCtrl.open(homeGuestCtrl.pois[2])">
 				<div>
-					<p>{{homeGuestCtrl.pois[2].name}}</p><br>
+					<p>{{homeGuestCtrl.pois[2].name}}</p>
 					<img src={{homeGuestCtrl.pois[2].picture}} width="400" height="250">
 				</div>
 			</td>

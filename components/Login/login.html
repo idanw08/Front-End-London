@@ -1,10 +1,6 @@
-<head>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-</head>
 <div class="bg-light border rounded border-dark shadow-lg"
 	style="margin-right: 30%;margin-left: 30%;padding-top: 20px;padding-bottom: 40px;padding-right: 20px;padding-left: 20px;width: 580px;height: 525px;margin-top: 30px;">
-	<label class="text-uppercase" style="font-family: Montserrat, sans-serif;font-size: 45px;">Login to
+	<label class="text-uppercase" style="font-family: Montserrat, sans-serif;font-size: 45px;font-weight: bold">Login to
 		london</label><img src="misc\big-ben.png" style="height: 90px;margin-bottom: 22px;">
 	<form class="text-left" style="width: 517px;padding-left: 22px;" name="loginForm"
 		ng-submit="loginCtrl.sumbitLogin(loginForm.$valid)" novalidate>
@@ -31,10 +27,10 @@
 				valid password is 5-10 alphanumeric characters.</p>
 		</div>
 		<button class="btn btn-primary border rounded shadow-lg text-uppercase" type="submit"
-			style="background-color: #00b5d6;font-family: Montserrat, sans-serif;font-size: 22px;margin-right: 30px;"
+			style="background-color: #1c63aa;font-family: Montserrat, sans-serif;font-size: 22px;margin-right: 30px;"
 			ng-disabled="loginForm.$invalid">Login</button>
 		<button class="btn btn-primary border rounded shadow-lg text-uppercase" id="forgotPassword"
-			style="background-color: #00b5d6;font-family: Montserrat, sans-serif;font-size: 22px;margin-right: 25px;"
+			style="background-color: #1c63aa;font-family: Montserrat, sans-serif;font-size: 22px;margin-right: 25px;"
 			ng-click="loginCtrl.getRecoveryQuestion(loginForm.username)"
 			ng-disabled="loginForm.username.$invalid">forgot password?</button>
 	</form>
@@ -49,8 +45,8 @@
 			<input class="border rounded shadow-lg form-control" type="text" name="recoveryAnswer" id="recoveryAnswer"
 				style="width: 240px;font-family: Montserrat, sans-serif;font-size: 16px;"
 				ng-model="loginCtrl.recoveryAnswer" required>
-			<button class="btn btn-primary border rounded shadow-lg" type="submit"
-				style="background-color: #00b5d6;font-family: Montserrat, sans-serif;font-size: 16px;margin-left: 260px;margin-right: 0px;margin-top: -63px;"
+			<button class="btn btn-primary border rounded shadow-lg text-uppercase" type="submit"
+				style="background-color: #1c63aa;font-family: Montserrat, sans-serif;font-size: 16px;margin-left: 260px;margin-right: 0px;margin-top: -63px;"
 				ng-disabled="passRecForm.$invalid"> Get Password </button>
 		</form>
 	</div>
