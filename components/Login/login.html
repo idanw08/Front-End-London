@@ -1,33 +1,57 @@
-<div style="display: flex; flex-direction: column; align-items: center; margin:80px">
-	<form name="loginForm" ng-submit="loginCtrl.sumbitLogin(loginForm.$valid)" novalidate>
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+</head>
+<div class="bg-light border rounded border-dark shadow-lg"
+	style="margin-right: 30%;margin-left: 30%;padding-top: 20px;padding-bottom: 40px;padding-right: 20px;padding-left: 20px;width: 580px;height: 525px;margin-top: 30px;">
+	<label class="text-uppercase" style="font-family: Montserrat, sans-serif;font-size: 45px;">Login to
+		london</label><img src="misc\big-ben.png" style="height: 90px;margin-bottom: 22px;">
+	<form class="text-left" style="width: 517px;padding-left: 22px;" name="loginForm"
+		ng-submit="loginCtrl.sumbitLogin(loginForm.$valid)" novalidate>
 		<div class="form-group">
-			<label>Username:</label>
-			<input type="text" name="username" ng-model="loginCtrl.user.username" ng-minlength='1' ng-maxlength='8' ng-pattern="/^[a-zA-Z]*$/" required>
-			<p ng-show="(loginForm.username.$dirty || submitted) && loginForm.username.$error.required">Enter Username.</p>
-			<p ng-show="loginForm.username.$error.pattern || loginForm.username.$error.minlength || loginForm.username.$error.maxlength">valid username is 3-8 alphabetical characters.</p>
+			<label class="text-uppercase" style="font-family: Montserrat, sans-serif;font-size: 24px;">Username:</label>
+			<input class="border rounded shadow-lg form-control" type="text" name="username"
+				style="width: 240px;font-family: Montserrat, sans-serif;" ng-model="loginCtrl.user.username"
+				ng-minlength='1' ng-maxlength='8' ng-pattern="/^[a-zA-Z]*$/" required>
+			<p ng-show="(loginForm.username.$dirty || submitted) && loginForm.username.$error.required">Enter Username.
+			</p>
+			<p
+				ng-show="loginForm.username.$error.pattern || loginForm.username.$error.minlength || loginForm.username.$error.maxlength">
+				valid username is 3-8 alphabetical characters.</p>
 		</div>
-		<br>
 		<div class="form-group">
-			<label>Password:</label>
-			<input type="password" name="password" ng-model="loginCtrl.user.password" ng-minlength='1' ng-maxlength='10' ng-pattern="/^[0-9a-zA-Z]*$/" required>
-			<p ng-show="(loginForm.password.$dirty || submitted) && loginForm.password.$error.required">Enter Password.</p>
-			<p ng-show="loginForm.password.$error.pattern || loginForm.password.$error.minlength || loginForm.password.$error.maxlength">valid password is 5-10 alphanumeric characters.</p>
+			<label class="text-uppercase" style="font-family: Montserrat, sans-serif;font-size: 24px;">Password:</label>
+			<input class="border rounded shadow-lg form-control" type="password" name="password"
+				style="width: 240px;font-family: Montserrat, sans-serif;" ng-model="loginCtrl.user.password"
+				ng-minlength='1' ng-maxlength='10' ng-pattern="/^[0-9a-zA-Z]*$/" required>
+			<p ng-show="(loginForm.password.$dirty || submitted) && loginForm.password.$error.required">Enter Password.
+			</p>
+			<p
+				ng-show="loginForm.password.$error.pattern || loginForm.password.$error.minlength || loginForm.password.$error.maxlength">
+				valid password is 5-10 alphanumeric characters.</p>
 		</div>
-
-		<br><br>
-		<button type="submit" ng-disabled="loginForm.$invalid">Login</button>
+		<button class="btn btn-primary border rounded shadow-lg text-uppercase" type="submit"
+			style="background-color: #00b5d6;font-family: Montserrat, sans-serif;font-size: 22px;margin-right: 30px;"
+			ng-disabled="loginForm.$invalid">Login</button>
+		<button class="btn btn-primary border rounded shadow-lg text-uppercase" id="forgotPassword"
+			style="background-color: #00b5d6;font-family: Montserrat, sans-serif;font-size: 22px;margin-right: 25px;"
+			ng-click="loginCtrl.getRecoveryQuestion(loginForm.username)"
+			ng-disabled="loginForm.username.$invalid">forgot password?</button>
 	</form>
-	
+
 	<!-- PASSWORD RECOVERY -->
-	<button id="forgotPassword" ng-click="loginCtrl.getRecoveryQuestion(loginForm.username)" ng-disabled="loginForm.username.$invalid">forgot password?</button>
-	
-	<br><br><br>
-	
+	<br>
 	<div id="recoveryDiv" style="display: none">
-		<form name="passRecForm" id="passRecForm" ng-submit="loginCtrl.recoverPassword(passRecForm.$valid)">
-			<label for="recoveryAnswer" id="recoveryQuestion"></label> &nbsp;
-			<input type="text" name="recoveryAnswer" id="recoveryAnswer" ng-model="loginCtrl.recoveryAnswer" required>
-			<button type="submit" ng-disabled="passRecForm.$invalid"> Get Password </button>
+		<form name="passRecForm" id="passRecForm" class="text-left" style="width: 517px;padding-left: 22px;"
+			ng-submit="loginCtrl.recoverPassword(passRecForm.$valid)">
+			<label style="font-family: Montserrat, sans-serif;font-size: 16px;" for="recoveryAnswer"
+				id="recoveryQuestion"></label> &nbsp;
+			<input class="border rounded shadow-lg form-control" type="text" name="recoveryAnswer" id="recoveryAnswer"
+				style="width: 240px;font-family: Montserrat, sans-serif;font-size: 16px;"
+				ng-model="loginCtrl.recoveryAnswer" required>
+			<button class="btn btn-primary border rounded shadow-lg" type="submit"
+				style="background-color: #00b5d6;font-family: Montserrat, sans-serif;font-size: 16px;margin-left: 260px;margin-right: 0px;margin-top: -63px;"
+				ng-disabled="passRecForm.$invalid"> Get Password </button>
 		</form>
 	</div>
 </div>
