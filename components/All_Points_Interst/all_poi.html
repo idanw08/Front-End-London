@@ -1,63 +1,89 @@
-<h1><span>All Points Of Interest In London</span></h1>
-<br />
-<p ng-model="localFav.length" ng-if="$root.isLoggedIn">You saved {{ localFav.length }} places in london!</p>
-<p ng-if="$root.isLoggedIn">Just click on the icon to see your favorite places in London.<img
-    src="misc\favoritefolder.png" ng-click="allPOICtrl.gotoFAV()" />
-</p>
-<div>
-  You can choose the category of the points of views you looking for :
-  <select ng-model="category" aria-placeholder="All">
-    <option value="">All</option>
-    <option value="Food">Food</option>
-    <option value="Culture">Culture</option>
-    <option value="Shopping">Shopping</option>
-    <option value="Night_Life">Night Life</option>
-  </select>
-  <br />
-  <br />
-  Search by the name of the point of view you looking for :
-  <input type="text" ng-model="searchText.name" />
-  <br />
-  <br />
-  Sort By :
-  <select ng-model="order">
-    <option value="poiRank">Rank</option>
-    <option value="numViews">Num of Views</option>
-  </select>
-  <br />
-  <br />
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Rank</th>
-        <th>Category</th>
-        <th>Num Of Views</th>
-        <th>Description</th>
-        <th>Picture</th>
-      </tr>
-    </thead>
+<style>
+  table {
+    border-collapse: none;
+  }
+
+  tr:hover {
+    background-color: #ffffff86;
+  }
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #1c63aa;
+  }
+</style>
+<h1 class="text-uppercase text-center"
+  style="margin: 30px;margin-bottom: 40px; height: 50px;font-family: Montserrat, sans-serif;font-size: 45px;font-weight: bold">
+  All Points Of
+  Interest In London</h1>
+<div style="margin-left: 10%; margin-bottom: 40px">
+  <div ng-if="$root.isLoggedIn">
+    <p style="font-family: Montserrat, sans-serif;font-size: 18px;margin-bottom: 0px;" ng-model="localFav.length">You
+      Saved {{ localFav.length }} Places in London! Click the Icon to See Your Favorite Places in London<img
+        style="margin-left: 10px;" src="misc\favoritefolder.png" ng-click="allPOICtrl.gotoFAV()" />
+    </p>
+  </div>
+  <div style="margin-bottom: 10px;">
+    <label style="font-family: Montserrat, sans-serif;font-size: 18px;margin-bottom: 0px;">
+      Search by the Name of Point of View:</label>
+    <input class="border rounded shadow-lg"
+      style="margin-left: 10px; font-family: Montserrat, sans-serif;font-size: 18px; width: 240px;height: 30px;padding-top: 0px;"
+      type="text" ng-model="searchText.name" />
+  </div>
+  <div style="margin-bottom: 10px;"><label
+      style="font-family: Montserrat, sans-serif;font-size: 18px;margin-bottom: 0px;">
+      Choose Category You Looking For:</label>
+    <select class="border rounded shadow-lg" style="margin-left: 10px; width: 100px;height: 30px;padding-top: 0px;"
+      ng-model="category" aria-placeholder="All">
+      <option value="">All</option>
+      <option value="Food">Food</option>
+      <option value="Culture">Culture</option>
+      <option value="Shopping">Shopping</option>
+      <option value="Night_Life">Night Life</option>
+    </select>
+  </div>
+  <div style="margin-bottom: 10px;">
+    <label style="font-family: Montserrat, sans-serif;font-size: 18px;margin-bottom: 0px;">
+      Sort By:</label>
+    <select style="margin-left: 10px;" class="border rounded shadow-lg" ng-model="order">
+      <option value="poiRank">Rank</option>
+      <option value="numViews">Num of Views</option>
+    </select>
+  </div>
+</div>
+<div style="display: flex">
+  <table class="table" style="margin-right: 5%;margin-left: 5%;">
+    <tr>
+      <th style="text-align:center; font-size: 24px;font-family: Montserrat, sans-serif;">Points of Interest</th>
+      <th style="text-align:center; font-size: 24px;font-family: Montserrat, sans-serif;">Picture</th>
+      <th style="text-align:center; font-size: 24px;font-family: Montserrat, sans-serif;" ng-if="$root.isLoggedIn">Like
+      </th>
+    </tr>
     <tr ng-repeat="x in (afterFilter = (allPois | filter:searchText | filter:category | orderBy:order:true))">
-      <td class="viewBtn" ng-click="allPOICtrl.open(x)">{{ x.name }}</td>
-      <td>{{ x.poiRank }}</td>
-      <td>{{ (x.category == "Night_Life") ? "Night Life" : x.category }}</td>
-      <td>{{ x.numViews }}</td>
-      <td>{{ x.poiDescription }}</td>
-      <td class="viewBtn" ng-click="allPOICtrl.open(x)">
+      <td style="text-align:left ;font-size: 16px;font-family: Montserrat, sans-serif;" width="650">
+        <b>Name: </b>
+        <span class="viewBtn" ng-click="allPOICtrl.open(x)"> {{ x.name }}</span><br>
+        <b>Rank: </b> {{ x.poiRank }}<br>
+        <b>Category: </b> {{ (x.category == "Night_Life") ? "Night Life" : x.category }}<br>
+        <b>Number of Views: </b> {{ x.numViews }}<br>
+        <b>Description: </b> {{ x.poiDescription }} </td>
+      <td class="viewBtn" ng-click="allPOICtrl.open(x)" width="450">
         <img ng-src="{{ x.picture }}" height="250" width="450" />
       </td>
       <!-- Like / Dislike -->
       <td ng-if="$root.isLoggedIn">
-        <img src="misc\heartreg.png" ng-click="allPOICtrl.saveInFavLocalList(x)" ng-show="!allPOICtrl.checkIfinFav(x)" />
-        <img src="misc\heartfav.png" ng-click="allPOICtrl.saveInFavLocalList(x)" ng-show="allPOICtrl.checkIfinFav(x)" />
+        <img style="margin-top: 60%" src="misc\heartreg.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
+          ng-show="!allPOICtrl.checkIfinFav(x)" />
+        <img style="margin-top: 60%" src="misc\heartfav.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
+          ng-show="allPOICtrl.checkIfinFav(x)" />
       </td>
       <!-- Like / Dislike -->
-
     </tr>
   </table>
-
-  <div ng-if="!afterFilter.length">
-    We're sorry there's no results for your search. <br />
-    but Hi! you can try to search another place!
-  </div>
+</div>
+<div style="text-align: center; font-family: Montserrat, sans-serif;font-size: 45px;font-weight: bold"
+  ng-if="!afterFilter.length">
+  We're sorry there's no results for your search. <br />
+  but Hi! you can try to search another place!
 </div>
