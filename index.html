@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+	<link rel="shortcut icon" type="image/x-icon" href="misc/big-ben-48.png">
 	<title>London</title>
 </head>
 
@@ -37,8 +38,7 @@
 			<li><a class="menuBtns" style="text-decoration:none; font-family: Montserrat, sans-serif;font-size: 18px;color:white" ng-if="!$root.isLoggedIn" href="#!/login">Login</a></li>
 			<li><a class="menuBtns" style="text-decoration:none; font-family: Montserrat, sans-serif;font-size: 18px;color:white" ng-if="!$root.isLoggedIn" href="#!/register"> Register </a></li>
 			<li><a class="menuBtns" style="text-decoration:none; font-family: Montserrat, sans-serif;font-size: 18px;color:white" ng-if="$root.isLoggedIn" href="#!/favs">Favourites</a></li>
-			<li><a class="menuBtns" style="text-decoration:none; font-family: Montserrat, sans-serif;font-size: 18px;color:white" ng-if="$root.isLoggedIn" ng-click="$root.logout()"
-					style="font-weight: bold; color:pink ; cursor: pointer"> Logout</a></li>
+			<li><a class="menuBtns" style="text-decoration:none; font-family: Montserrat, sans-serif;font-size: 18px;color:white" ng-if="$root.isLoggedIn" href="" ng-click="$root.logout()">Logout</a></li>
 			<li style="text-decoration:none; font-family: Montserrat, sans-serif;font-size: 18px;color:white;float: right; cursor: default"><a> Hello {{$root.loggedUser}} </a></li>
 		</ul>
 
