@@ -1,109 +1,118 @@
-body { 
-	background: url(misc/London_1600x900.jpg) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	background-attachment: fixed;
-  }
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+body {
+  background: url(misc/London_1600x900.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment: fixed;
+}
 ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: rgb(0, 0, 0);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(0, 0, 0);
 }
 
 li {
-	float: left;
-}
-
-li a {
-	display: block;
-	color: white;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-}
-
-.menuBtns:hover {
-	background-color: #1c63aa;
-}
-
-tr {
-	text-align: center;
-	height: 50px;
-}
-
-.modalHeader {
-	margin: 0 10px;
-	cursor: default;
-}
-
-.modalHeader h4 {
-	float: left;
-}
-
-.modalHeader #X {
-	float: right;
-	cursor: pointer;
-	border: 1px black solid
-}
-
-
-#modal-dialog {
-	display: none;
-	position: fixed;
-	top: 1%;
-	left: 10%;
-	width: 80%;
-	height: 90%;
-	z-index: 1;
-	/* Sit on top */
-	overflow: auto;
-	/* Enable scroll if needed */
-	border: 2px solid;
-	padding: 10px;
-	background-color: #fefefe;
-	box-shadow: 10px 10px 20px 10px #888888;
-}
-
-fieldset, label { margin: 0; padding: 0; }
-body{ margin: 20px; }
-h1 { font-size: 1.5em; margin: 10px; }
-
-/****** Style Star Rating Widget *****/
-
-.rating { 
-  border: none;
   float: left;
 }
 
-.rating > input { display: none; } 
-.rating > label:before { 
-  margin: 5px;
-  font-size: 1.25em;
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f005";
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }
 
-.rating > label { 
-  color: #ddd; 
- float: right; 
+.menuBtns:hover {
+  background-color: #1c63aa;
 }
 
-/***** CSS Magic to Highlight Stars on Hover *****/
+tr {
+  text-align: center;
+  height: 50px;
+}
 
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+.modalHeader {
+  margin: 0 10px;
+  cursor: default;
+}
 
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+.modalHeader h4 {
+  float: left;
+}
 
-textarea {
-	resize: none;
- }
+.modalHeader #X {
+  float: right;
+  cursor: pointer;
+  border: 1px black solid;
+}
+
+#modal-dialog {
+  display: none;
+  position: fixed;
+  top: 1%;
+  left: 10%;
+  width: 80%;
+  height: 90%;
+  z-index: 1;
+  /* Sit on top */
+  overflow: auto;
+  /* Enable scroll if needed */
+  border: 2px solid;
+  padding: 10px;
+  background-color: #fefefe;
+  box-shadow: 10px 10px 20px 10px #888888;
+}
+
+fieldset,
+label {
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 20px;
+}
+h1 {
+  font-size: 1.5em;
+  margin: 10px;
+}
+/****** Style Star Rating Widget *****/
+
+.rating { 
+	border: none;
+	float: left;
+  }
+  
+  .rating > input { display: none; } 
+  .rating > label:before { 
+	margin: 5px;
+	font-size: 1.25em;
+	font-family: FontAwesome;
+	display: inline-block;
+	content: "\f005";
+  }
+  
+  .rating > label { 
+	color: #ddd; 
+   float: right; 
+  }
+  
+  /***** CSS Magic to Highlight Stars on Hover *****/
+  
+  .rating > input:checked ~ label, /* show gold star when clicked */
+  .rating:not(:checked) > label:hover, /* hover current star */
+  .rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+  
+  .rating > input:checked + label:hover, /* hover current star when changing rating */
+  .rating > input:checked ~ label:hover,
+  .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+  .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+  
+  textarea {
+	  resize: none;
+   } 
