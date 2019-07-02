@@ -6,10 +6,10 @@ angular.module('london_app')
 			$location.path(page);
 		};
 
-		$http.get('http://localhost:3000/guest/randExplorePOIs/0')
+		$http.get('http://localhost:3000/guest/randExplorePOIs/60')
 			.then(
 				function (response) {
-					console.log('randExplorePOIs successful');
+					// console.log('randExplorePOIs successful');
 					const ans = response.data;
 					self.pois = [];
 					for (let i = 0; i < 3; i++) {

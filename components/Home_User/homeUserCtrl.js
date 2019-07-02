@@ -40,49 +40,58 @@ angular.module('london_app')
 				.then(
 					function (response) {
 						let row = document.getElementById('rsRow')
-						if (response.data.length === 0 && $rootScope.localFav.length == 0) {
-							//console.log('0-0')
-							let label = document.createElement('label')
-							let text = document.createTextNode('YOU DID NOT SAVE ANY FAVOURITE POINTS IN LONDON!')
-							label.appendChild(text)
-							row.appendChild(label)
+						let lclFavs = []
+						$rootScope.userFavs.forEach(e => {
+							if (!e.DB) { 
+								// lclFavs.push($rootScope.allPois.filter(p => p.name===e.FK_poi_name)[0]) 
+								lclFavs.push(e) 
+							}
+						})
+						console.log('response.data', response.data);
+						console.log('lclFavs',lclFavs);
+						if (response.data.length === 0 && lclFavs.length == 0) {
+							console.log('0-0')
+							let cell = row.insertCell(0)
+							cell.innerHTML = 'YOU DID NOT SAVE ANY FAVOURITE POINTS IN LONDON!'
+							cell.colSpan = 2
 						}
-						else if (response.data.length === 0 && $rootScope.localFav.length === 1) {
-							//console.log('0-1')
-							self.rcntPOI0 = $rootScope.localFav[0]
-							createTD($rootScope.localFav[0], 0)
+						else if (response.data.length === 0 && lclFavs.length === 1) {
+							console.log('0-1')
+							self.rcntPOI0 = lclFavs[0]
+							createTD(lclFavs[0], 0)
 						}
-						else if (response.data.length === 1 && $rootScope.localFav.length === 1) {
-							//console.log('1-1')
-							//console.log('1===1')
+						else if (response.data.length === 1 && lclFavs.length === 1) {
+							console.log('1-1')
+							if (response.data[0]) {
+								
+							}
+							self.rcntPOI0 = response.data[0]
+							self.rcntPOI1 = lclFavs[0]
+							createTD(response.data[0], 0)
+							createTD(lclFavs[0], 1)
+						}
+						else if (response.data.length === 1 && lclFavs.length === 0) {
+							console.log('1-0')
 							self.rcntPOI0 = response.data[0]
 							createTD(response.data[0], 0)
 						}
-						else if (response.data.length === 0 && $rootScope.localFav.length > 1) {
-							//console.log('0->1')
-							let ans = local2RecentSaves($rootScope.localFav)
-							self.rcntPOI0 = ans[0]
-							self.rcntPOI1 = ans[1]
-							createTD($rootScope.localFav[0], 0)
-							createTD($rootScope.localFav[1], 1)
-						}
 
-						else if (response.data.length > 1 && $rootScope.localFav.length === 0) {
-							//console.log('>1-0')
-							let ans = local2RecentSaves(response.data)
-							self.rcntPOI0 = ans[0]
-							self.rcntPOI1 = ans[1]
-							createTD(ans[0], 0)
-							createTD(ans[1], 1)
+						else if (response.data.length > 1 && lclFavs.length === 0) {
+							console.log('>1-0')
+							self.rcntPOI0 = response.data[0]
+							self.rcntPOI1 = response.data[1]
+							createTD(response.data[0], 0)
+							createTD(response.data[1], 1)
 						}
 						else {
-							//console.log('>1->1')
-							let ans = local2RecentSaves($rootScope.localFav)
-							//console.log(ans)
-							self.rcntPOI0 = ans[0]
-							self.rcntPOI1 = ans[1]
-							createTD(ans[0], 0)
-							createTD(ans[1], 1)
+							console.log('* - >1')
+							let ans = local2RecentSaves(lclFavs)	
+							self.rcntPOI0 = $rootScope.allPois.filter(p => p.name === ans[0].FK_poi_name)[0]
+							self.rcntPOI1 = $rootScope.allPois.filter(p => p.name === ans[1].FK_poi_name)[0]
+							// console.log('rcntPOI0', self.rcntPOI0);
+							// console.log('rcntPOI1', self.rcntPOI1);
+							createTD(self.rcntPOI0, 0)
+							createTD(self.rcntPOI1, 1)
 						}
 					},
 					function (error) {
@@ -93,7 +102,7 @@ angular.module('london_app')
 		}
 
 		function createTD(data, i) {
-			// console.log(data)
+			// console.log('createTD data:',data)
 			let td = document.createElement('td')
 			let label = document.createElement('label')
 			let text
@@ -112,8 +121,7 @@ angular.module('london_app')
 			img.width = "400"
 			td.appendChild(img)
 			td.insertBefore(document.createElement('br'), img)
-			if (i == 0) td.setAttribute("ng-click", "homeUserCtrl.open(homeUserCtrl.rcntPOI0)")
-			else td.setAttribute("ng-click", "homeUserCtrl.open(homeUserCtrl.rcntPOI1)")
+			td.setAttribute("ng-click", `homeUserCtrl.open(homeUserCtrl.rcntPOI${i})`)
 			document.getElementById('rsRow').appendChild(td)
 			$rootScope.recompile(td)
 		}
@@ -123,10 +131,10 @@ angular.module('london_app')
 				ModalService.open(poi);
 		}
 
-		function local2RecentSaves() {
+		function local2RecentSaves(arr) {
 			let ans1, ans2
 			let time1 = '0000-01-01 00:01:01.111'
-			$rootScope.localFav.forEach(element => {
+			arr.forEach(element => {
 				if (element._time_date > time1) {
 					time1 = element._time_date
 					ans1 = element
@@ -134,7 +142,7 @@ angular.module('london_app')
 			})
 
 			let time2 = '0000-01-01 00:01:01.111'
-			$rootScope.localFav.forEach(element => {
+			arr.forEach(element => {
 				if (element._time_date !== time1 && element._time_date > time2) {
 					time2 = element._time_date
 					ans2 = element

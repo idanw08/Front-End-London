@@ -20,8 +20,8 @@
   All Points Of Interest In London <img src="misc\london-bridge.png" style="margin-bottom: 15px"></h1>
 <div style="margin-left: 10%; margin-bottom: 40px">
   <div ng-if="$root.isLoggedIn">
-    <p style="font-family: Montserrat, sans-serif;font-size: 18px;margin-bottom: 0px;" ng-model="localFav.length">You
-      Saved {{ localFav.length }} Places in London! Click the Icon to See Your Favorite Places in London<img
+    <p style="font-family: Montserrat, sans-serif;font-size: 18px;margin-bottom: 0px;" ng-model="userFavs.length">You
+      Saved {{ userFavs.length }} Places in London! Click the Icon to See Your Favorite Places in London<img
         style="margin-left: 10px;" src="misc\favoritefolder.png" ng-click="allPOICtrl.gotoFAV()" />
     </p>
   </div>
@@ -74,9 +74,9 @@
       </td>
       <!-- Like / Dislike -->
       <td ng-if="$root.isLoggedIn">
-        <img style="margin-top: 60%" src="misc\heartreg.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
+        <img class="heartIcon" style="margin-top: 60%" src="misc\heartreg.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
           ng-show="!allPOICtrl.checkIfinFav(x)" />
-        <img style="margin-top: 60%" src="misc\heartfav.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
+        <img class="heartIcon" style="margin-top: 60%" src="misc\heartfav.png" ng-click="allPOICtrl.saveInFavLocalList(x)"
           ng-show="allPOICtrl.checkIfinFav(x)" />
       </td>
       <!-- Like / Dislike -->

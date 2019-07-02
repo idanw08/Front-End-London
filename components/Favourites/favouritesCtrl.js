@@ -2,15 +2,15 @@ angular.module('london_app')
 	.controller('favouritesController', ['$rootScope', '$http', '$location', '$httpParamSerializerJQLike', 'ModalService', 'tokenStorage', 'RemoveDBFavourite',
 		function ($rootScope, $http, $location, $httpParamSerializerJQLike, ModalService, tokenStorage, RemoveDBFavourite) {
 			let self = this
-			self.haveFavs = ($rootScope.localFav.length > 0)
+			self.haveFavs = ($rootScope.userFavs.length > 0)
 			
 			self.saveInFavLocalList = function (favPoi) {
-				if ($rootScope.localFav.filter(value => value.name == favPoi.name).length > 0) {
-					let i = $rootScope.localFav.findIndex(x => x.name === favPoi.name);
-					if (i > -1) $rootScope.localFav.splice(i, 1);
+				if ($rootScope.userFavs.filter(value => value.name == favPoi.name).length > 0) {
+					let i = $rootScope.userFavs.findIndex(x => x.name === favPoi.name);
+					if (i > -1) $rootScope.userFavs.splice(i, 1);
 				} else {
-					$rootScope.localFav.push(favPoi);
-					console.log($rootScope.localFav)
+					$rootScope.userFavs.push(favPoi);
+					console.log($rootScope.userFavs)
 				}
 			}
 
@@ -22,7 +22,7 @@ angular.module('london_app')
 						'authorization': `Bearer ${tokenStorage.getUserToken($rootScope.loggedUser)}`
 					}
 				}
-				$rootScope.localFav.forEach(element => {
+				$rootScope.userFavs.forEach(element => {
 					favourites.push({
 						poi: element.FK_poi_name,
 						timeDate: element._time_date
@@ -48,12 +48,12 @@ angular.module('london_app')
 				if (favPoi.DB) {
 					RemoveDBFavourite.delete(favPoi)
 				}
-				$rootScope.localFav.splice($rootScope.localFav.indexOf(favPoi), 1)
+				$rootScope.userFavs.splice($rootScope.userFavs.indexOf(favPoi), 1)
 			}
 
 			self.checkIfinFav = function (poi) {
-				if ($rootScope.localFav.length > 0) {
-					if ($rootScope.localFav.filter(value => value.name == poi.name).length > 0)
+				if ($rootScope.userFavs.length > 0) {
+					if ($rootScope.userFavs.filter(value => value.name == poi.name).length > 0)
 						return true;
 					else return false;
 				}
@@ -62,25 +62,25 @@ angular.module('london_app')
 			self.moveUp = function (poi) {
 				// document.getElementById("sorter").selectedIndex = "0"
 				// self.order = "none"
-				// $filter('orderBy')($root.localFav, "order")
-				const idx = $rootScope.localFav.indexOf(poi)
+				// $filter('orderBy')($root.userFavs, "order")
+				const idx = $rootScope.userFavs.indexOf(poi)
 				if (idx === 0) return
 
-				const tmp = $rootScope.localFav[idx - 1]
-				$rootScope.localFav[idx - 1] = poi
-				$rootScope.localFav[idx] = tmp
+				const tmp = $rootScope.userFavs[idx - 1]
+				$rootScope.userFavs[idx - 1] = poi
+				$rootScope.userFavs[idx] = tmp
 			}
 
 			self.moveDown = function (poi) {
 				// document.getElementById("sorter").selectedIndex = "0"
 				// self.order = "none"
-				// $filter('orderBy')($root.localFav, "order")
-				const idx = $rootScope.localFav.indexOf(poi)
-				if (idx === $rootScope.localFav.length - 1) return
+				// $filter('orderBy')($root.userFavs, "order")
+				const idx = $rootScope.userFavs.indexOf(poi)
+				if (idx === $rootScope.userFavs.length - 1) return
 
-				const tmp = $rootScope.localFav[idx + 1]
-				$rootScope.localFav[idx + 1] = poi
-				$rootScope.localFav[idx] = tmp
+				const tmp = $rootScope.userFavs[idx + 1]
+				$rootScope.userFavs[idx + 1] = poi
+				$rootScope.userFavs[idx] = tmp
 			}
 
 			self.open = function (poiName) {

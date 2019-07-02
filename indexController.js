@@ -10,7 +10,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 		$rootScope.isLoggedIn = false
 		$rootScope.loggedUser = 'Guest'
 		$rootScope.allPois = []
-		$rootScope.localFav = []
+		$rootScope.userFavs = []
 
 		self.myVar = false
 		self.poiName = ''
@@ -55,7 +55,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 				tokenStorage.removeUserToken($rootScope.loggedUser)
 				$rootScope.isLoggedIn = false
 				$rootScope.loggedUser = 'Guest'
-				$rootScope.localFav = []
+				$rootScope.userFavs = []
 				$location.path('/')
 			}
 		}
@@ -75,12 +75,14 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 			document.getElementById('modal-dialog').style.display = 'none';
 			document.body.style = 'background-color: white';
 			ModalService.isOpen = false
+			
 		}
 
 		self.toggle = function () {
-
 			self.poiName = ModalService.getPOIname()
 			self.myVar = !self.myVar
+			document.getElementById('reviewText').value = ''
+			document.getElementById('starsForm').reset()
 		}
 
 		self.addReview = function (poiName, reviewContent, rankValue) {
@@ -90,6 +92,10 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 				rankVal: rankValue
 			}
 			let revConfig = {
+				paramSerializer: {
+					username: 'edan',
+					poi_name: 'bigben'
+				},
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded',
 					'Authorization': `Bearer ${tokenStorage.getUserToken($rootScope.loggedUser)}`
@@ -98,7 +104,8 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 			$http.post('http://localhost:3000/guest/poi/addPOIreview', $httpParamSerializerJQLike(newReview), revConfig)
 				.then(
 					function (response) {
-
+						console.log('review added.')
+						ModalService.open($rootScope.allPois.filter(p => p.name === poiName)[0])
 					},
 					function (error) {
 						alert('Error!!.')
@@ -106,11 +113,38 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 				)
 		}
 
-		  document.onclick = function (e) {
+		document.onclick = function (e) {
 			self.poiName = ModalService.getPOIname()
 			let modal = document.getElementById('modal-dialog')
 			if (!(e.target === modal || (modal.contains(e.target) && e.target !== document.getElementById('X')))) {
 				self.closeModal()
 			}
 		}
+
+		self.saveInFavLocalList = function () {
+			let poi = $rootScope.allPois.filter(p => p.name === ModalService.getPOIname())[0]
+			if ($rootScope.userFavs.filter(value => value.FK_poi_name == poi.name).length > 0) {
+				let i = $rootScope.userFavs.findIndex(x => x.FK_poi_name === poi.name);
+				if (i > -1) $rootScope.userFavs.splice(i, 1);
+			} else {
+				$rootScope.userFavs.push({
+					FK_username: $rootScope.loggedUser,
+					FK_poi_name: poi.name,
+					_time_date: new Date().toISOString().replace('T', ' ').replace('Z', ''),
+					img: $rootScope.allPois.filter(p => p.name === poi.name)[0].picture,
+					category: $rootScope.allPois.filter(p => p.name === poi.name)[0].category,
+					poiRank: $rootScope.allPois.filter(p => p.name === poi.name)[0].poiRank,
+					DB: false
+				});
+			}
+		}
+
+		self.checkIfinFav = function () {
+			if (ModalService.isOpen && $rootScope.userFavs.length > 0) {
+				if ($rootScope.userFavs.filter(value => value.FK_poi_name == ModalService.getPOIname()).length > 0)
+					return true;
+				else return false;
+			}
+		}
+
 	}]);

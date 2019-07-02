@@ -4,7 +4,9 @@ angular.module("london_app").controller("allPointsofInterstController", [
   "$http",
   "$location",
   "ModalService",
-  function ($scope, $rootScope, $http, $location, ModalService) {
+  "tokenStorage",
+  "$httpParamSerializerJQLike",
+  function ($scope, $rootScope, $http, $location, ModalService, tokenStorage, $httpParamSerializerJQLike) {
     let self = this;
 
     self.gotoFAV = function () {
@@ -13,27 +15,45 @@ angular.module("london_app").controller("allPointsofInterstController", [
 
     /** saves in the local favorite list the POI's */
     self.saveInFavLocalList = function (POi) {
-      if ($rootScope.localFav.filter(value => value.FK_poi_name == POi.name).length > 0) {
-        let i = $rootScope.localFav.findIndex(x => x.FK_poi_name === POi.name);
-        if (i > -1) $rootScope.localFav.splice(i, 1);
+      let targetPoi = $rootScope.userFavs.filter(value => value.FK_poi_name == POi.name)
+      if (targetPoi.length > 0) {
+        if (targetPoi[0].DB) {
+          const config = {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': `Bearer ${tokenStorage.getUserToken($rootScope.loggedUser)}`
+            }
+          }
+          $http.delete(`http://localhost:3000/user/poi/removeFavouritePOI/${$rootScope.loggedUser}/${targetPoi[0].FK_poi_name}`, config)
+            .then(
+              function (response) {
+                console.log('deleted successfuly')
+              },
+              function (error) {
+                console.log('Unsuccessful delete', error)
+              }
+            )
+        }
+        let i = $rootScope.userFavs.findIndex(x => x.FK_poi_name === POi.name);
+        if (i > -1) $rootScope.userFavs.splice(i, 1);
       } else {
-        $rootScope.localFav.push({
+        $rootScope.userFavs.push({
           FK_username: $rootScope.loggedUser,
           FK_poi_name: POi.name,
-          _time_date: new Date().toISOString().replace('T', ' ').replace('Z', ' '),
+          _time_date: new Date().toISOString().replace('T', ' ').replace('Z', ''),
           img: $rootScope.allPois.filter(p => p.name === POi.name)[0].picture,
           category: $rootScope.allPois.filter(p => p.name === POi.name)[0].category,
           poiRank: $rootScope.allPois.filter(p => p.name === POi.name)[0].poiRank,
           DB: false
         });
-        console.log('ADDED FAVS:', $rootScope.localFav)
+        console.log('ADDED FAVS:', $rootScope.userFavs)
       }
     };
 
     /** checking in the local favorite list if the POI that choosen in the list */
     self.checkIfinFav = function (POi) {
-      if ($rootScope.localFav.length > 0) {
-        if ($rootScope.localFav.filter(value => value.FK_poi_name == POi.name).length > 0)
+      if ($rootScope.userFavs.length > 0) {
+        if ($rootScope.userFavs.filter(value => value.FK_poi_name == POi.name).length > 0)
           return true;
         else return false;
       }

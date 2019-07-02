@@ -43,7 +43,7 @@
             <th style="text-align:center; font-size: 24px;font-family: Montserrat, sans-serif;">Point of Interst</th>
             <th style="text-align:center; font-size: 24px;font-family: Montserrat, sans-serif;">Remove</th>
         </tr>
-        <tr ng-repeat="x in $root.localFav | orderBy: order">
+        <tr ng-repeat="x in $root.userFavs | orderBy: order">
             <!-- UP / DOWN ARROWS -->
             <td>
                 <div class="orderArrow" ng-click="favsCtrl.moveUp(x)"> &#9650 </div>

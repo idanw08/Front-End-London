@@ -8,6 +8,7 @@ angular.module('london_app')
 					.then(function (response) {
 						const data = response.data;
 						if (!data.token) {
+							console.log('here1 !!');
 							alert('username or password incorrect!');
 							return
 						}
@@ -23,17 +24,16 @@ angular.module('london_app')
 									// do nothing cause there are no favs in the DB
 								} else {
 									response.data.forEach(element => {
-										$rootScope.localFav.push({
+										$rootScope.userFavs.push({
 											FK_username: element.FK_username,
 											FK_poi_name: element.FK_poi_name,
-											_time_date: element._time_date.replace('T', ' ').replace('Z', ' '),
+											_time_date: element._time_date.replace('T', ' ').replace('Z', ''),
 											img: $rootScope.allPois.filter(p => p.name === element.FK_poi_name)[0].picture,
 											category: $rootScope.allPois.filter(p => p.name === element.FK_poi_name)[0].category,
 											poiRank: $rootScope.allPois.filter(p => p.name === element.FK_poi_name)[0].poiRank,
 											DB: true
 										})
 									});
-									//console.log('FROM DB:', $rootScope.localFav)
 								}
 							},
 								function (error) { }
@@ -51,10 +51,6 @@ angular.module('london_app')
 
 			self.getRecoveryQuestion = function (usernameObj) {
 				const username = { username: usernameObj.$viewValue }
-				if (username.username === undefined || username.username === '') {
-					alert('Enter Username')
-					return
-				}
 				$http.post('http://localhost:3000/auth/recoveryQuestions', $httpParamSerializerJQLike(username), $rootScope.postConfig)
 					.then(
 						function (response) {

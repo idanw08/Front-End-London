@@ -12,7 +12,7 @@ angular.module('london_app').service('ModalService', ['$rootScope', '$http', '$h
 
     self.init = function (pois) {
         self.pois = pois
-        console.log('init:', self.pois);
+        // console.log('init:', self.pois);
     }
 
     self.getPOIname = function () {
@@ -22,6 +22,7 @@ angular.module('london_app').service('ModalService', ['$rootScope', '$http', '$h
     // open the POI modal dialog. uses timeout because updatePOIview has two callback in it and needs to wait for them to resolve
     self.open = function (poi) {
         let obj = poi.name === 'St. Paul\'s' ? { poi_name: 'St. Paul' + '\'\'' + 's' } : { poi_name: poi.name }
+        //console.log(obj);
         $http.post('http://localhost:3000/guest/poi/addPOIview', $httpParamSerializerJQLike(obj), $rootScope.postConfig)
             .then(function (response) {
                 $http.get('http://localhost:3000/user/poi/getAll_POI')
@@ -37,14 +38,14 @@ angular.module('london_app').service('ModalService', ['$rootScope', '$http', '$h
                                 }
                             }
                             self.zibi = poi.reviews
-                            console.log(poi)
+                            // console.log(poi)
                             poiImg.src = poi.picture
                             if (poi.name.includes('&')) {
                                 poi.name.replace('&', '&amp;')
                                 poiName.innerHTML = poi.name
                             }
-                            else
-                                poiName.innerHTML = poi.name
+                            else poiName.innerHTML = poi.name
+
                             poiDesc.innerHTML = poi.poiDescription
                             self.poiViews.innerHTML = poi.numViews
                             self.poiRating.innerHTML = poi.poiRank

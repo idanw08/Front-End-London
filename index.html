@@ -12,6 +12,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="misc/big-ben-48.png">
 	<title>London</title>
 </head>
+
 <body>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
 	<script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
@@ -61,6 +62,7 @@
 
 		<div id="ngView" ng-view></div>
 
+		<!-- POI Modal -->
 		<div id="modal-dialog" style="font-family: Montserrat, sans-serif;">
 			<header class="modalHeader">
 				<h4 id="poiName" style="font-family: Montserrat, sans-serif;font-weight: bold;font-size: 40px"></h4>
@@ -75,60 +77,73 @@
 						<b>Number of Views:</b> <span id="poiViews"></span><br>
 						<b>Rating:</b> <span id="poiRating">% People like this!</span><br>
 						<button class="btn btn-primary border rounded shadow-lg text-uppercase"
-						style="background-color: #1c63aa;font-family: Montserrat, sans-serif;margin-top: 10px" type="button" ng-if="$root.isLoggedIn"
-							ng-click="idxCtrl.toggle() ; myTextarea = '' ; reviewRank = '' "
-							ng-show="!idxCtrl.myVar">Add Review</button>
+							style="background-color: #1c63aa;font-family: Montserrat, sans-serif;margin-top: 10px"
+							type="button" ng-if="$root.isLoggedIn"
+							ng-click="idxCtrl.toggle()"
+							ng-show="!idxCtrl.myVar">Add Review
+						</button>
+						<span ng-if="$root.isLoggedIn">
+							<img class="heartIcon" style="margin-left: 25px" src="misc\heartreg.png" width="60" height="60" ng-click="idxCtrl.saveInFavLocalList()"
+								ng-show="!idxCtrl.checkIfinFav()" />
+							<img class="heartIcon" style="margin-left: 25px" src="misc\heartfav.png" width="60" height="60" ng-click="idxCtrl.saveInFavLocalList()"
+								ng-show="idxCtrl.checkIfinFav()" />
+						</span>
 					</div>
 				</div>
 			</div>
 			<br>
 			<div ng-show="idxCtrl.myVar">
-				<h3 style="font-family: Montserrat, sans-serif;font-weight: bold;font-size: 30px">Share with us what you think about {{idxCtrl.poiName}}!</h3>
+				<h3 style="font-family: Montserrat, sans-serif;font-weight: bold;font-size: 30px">Share with us what you
+					think about {{idxCtrl.poiName}}!</h3>
 				<div>
-					<textarea id="reviewText" style="font-family: Montserrat, sans-serif; resize: none" ng-model="myTextarea" rows="5" cols="100" ></textarea>
+					<textarea id="reviewText" style="font-family: Montserrat, sans-serif; resize: none"
+						ng-model="myTextarea" rows="5" cols="100"></textarea>
 				</div>
 				<div>
-					<fieldset class="rating">
-						<input ng-model="reviewRank" type="radio" id="star5" name="rating" value="5" /><label
-							class="full" for="star5" title="Awesome - 5 stars"></label>
-						<input ng-model="reviewRank" type="radio" id="star4" name="rating" value="4" /><label
-							class="full" for="star4" title="Pretty good - 4 stars"></label>
-						<input ng-model="reviewRank" type="radio" id="star3" name="rating" value="3" /><label
-							class="full" for="star3" title="Meh - 3 stars"></label>
-						<input ng-model="reviewRank" type="radio" id="star2" name="rating" value="2" /><label
-							class="full" for="star2" title="Kinda bad - 2 stars"></label>
-						<input ng-model="reviewRank" type="radio" id="star1" name="rating" value="1" /><label
-							class="full" for="star1" title="Sucks big time - 1 star"></label>
-					</fieldset>
+					<form id='starsForm' class="rating">
+						<input ng-model="reviewRank" type="radio" id="star5" name="rating" value="5" />
+						<label class="full" for="star5" title="Awesome - 5 stars"></label>
+						<input ng-model="reviewRank" type="radio" id="star4" name="rating" value="4" />
+						<label class="full" for="star4" title="Pretty good - 4 stars"></label>
+						<input ng-model="reviewRank" type="radio" id="star3" name="rating" value="3" />
+						<label class="full" for="star3" title="Meh - 3 stars"></label>
+						<input ng-model="reviewRank" type="radio" id="star2" name="rating" value="2" />
+						<label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+						<input ng-model="reviewRank" type="radio" id="star1" name="rating" value="1" />
+						<label class="full" for="star1" title="Sucks big time - 1 star"></label>
+					</form>
 				</div>
 				<div style="margin-top:10px;margin-left: 28%">
-				<button class="btn btn-primary border rounded shadow-lg text-uppercase"
-				style="background-color: #1c63aa;font-family: Montserrat, sans-serif;font-size: 22px"
-					ng-click="idxCtrl.addReview(idxCtrl.poiName,myTextarea,reviewRank); idxCtrl.myVar = false">Submit</button>
-				<button class="btn btn-primary border rounded shadow-lg text-uppercase"
-				style="background-color: #1c63aa;font-family: Montserrat, sans-serif;font-size: 22px"
-				ng-click="idxCtrl.toggle()" ng-show="idxCtrl.myVar">Cancel</button>
-			</div>
+					<button class="btn btn-primary border rounded shadow-lg text-uppercase"
+						style="background-color: #1c63aa;font-family: Montserrat, sans-serif;font-size: 22px"
+						ng-click="idxCtrl.addReview(idxCtrl.poiName,myTextarea,reviewRank); idxCtrl.myVar = false">Submit</button>
+					<button class="btn btn-primary border rounded shadow-lg text-uppercase"
+						style="background-color: #1c63aa;font-family: Montserrat, sans-serif;font-size: 22px"
+						ng-click="idxCtrl.toggle()" ng-show="idxCtrl.myVar">Cancel</button>
+				</div>
 			</div>
 			<div style="font-family: Montserrat, sans-serif;" ng-if="!idxCtrl.myVar" id="comments">
 				<h5 style="font-weight: bold;font-size: 30px">Comments</h5>
 				<table>
 					<thead>
-						<tr ng-if="af.length" >
+						<tr ng-if="af.length">
 							<th style="padding: 8px; text-align: left; border-bottom: 1px solid #1c63aa;">Rank</th>
 							<th style="padding: 8px; text-align: left; border-bottom: 1px solid #1c63aa;">Review</th>
 						</tr>
 					</thead>
 					<tr ng-repeat="x in (af = (idxCtrl.ModalService.zibi))">
-						<td style="padding: 8px; text-align: center; border-bottom: 1px solid #1c63aa;" >{{ x.rankVal }}</td>
-						<td style="padding: 8px; text-align: left; border-bottom: 1px solid #1c63aa;">{{ x.review_content }}</td>
+						<td style="padding: 8px; text-align: center; border-bottom: 1px solid #1c63aa;">{{ x.rankVal }}
+						</td>
+						<td style="padding: 8px; text-align: left; border-bottom: 1px solid #1c63aa;">
+							{{ x.review_content }}</td>
 					</tr>
 				</table>
-				<label style="font-weight: bold;font-size:22px" ng-if="!af.length"> There are no comments on this place. </label>
+				<label style="font-weight: bold;font-size:22px" ng-if="!af.length"> There are no comments on this place.
+				</label>
 			</div>
 		</div>
 	</div>
-	</div>
+	<!-- </div> -->
 </body>
 
 </html>
