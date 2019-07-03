@@ -1,5 +1,5 @@
-angular.module('london_app').controller('indexController', ['$rootScope', '$scope', 'tokenStorage', '$location', 'ModalService', '$http', '$httpParamSerializerJQLike',
-	function ($rootScope, $scope, tokenStorage, $location, ModalService, $http, $httpParamSerializerJQLike) {
+angular.module('london_app').controller('indexController', ['$rootScope', '$scope', 'tokenStorage', '$location', 'ModalService', '$http', '$httpParamSerializerJQLike', 'RemoveDBFavourite',
+	function ($rootScope, $scope, tokenStorage, $location, ModalService, $http, $httpParamSerializerJQLike, RemoveDBFavourite) {
 		let self = this
 		$rootScope.postConfig = {
 			headers: {
@@ -75,7 +75,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 			document.getElementById('modal-dialog').style.display = 'none';
 			document.body.style = 'background-color: white';
 			ModalService.isOpen = false
-			
+
 		}
 
 		self.toggle = function () {
@@ -92,10 +92,6 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 				rankVal: rankValue
 			}
 			let revConfig = {
-				paramSerializer: {
-					username: 'edan',
-					poi_name: 'bigben'
-				},
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded',
 					'Authorization': `Bearer ${tokenStorage.getUserToken($rootScope.loggedUser)}`
@@ -108,6 +104,7 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 						ModalService.open($rootScope.allPois.filter(p => p.name === poiName)[0])
 					},
 					function (error) {
+						console.log('addReviewError', error);
 						alert('Error!!.')
 					}
 				)
@@ -123,10 +120,16 @@ angular.module('london_app').controller('indexController', ['$rootScope', '$scop
 
 		self.saveInFavLocalList = function () {
 			let poi = $rootScope.allPois.filter(p => p.name === ModalService.getPOIname())[0]
-			if ($rootScope.userFavs.filter(value => value.FK_poi_name == poi.name).length > 0) {
+			let poiFromFavs = $rootScope.userFavs.filter(value => value.FK_poi_name == poi.name)
+			// unliked
+			if (poiFromFavs.length > 0) {
+				if (poiFromFavs[0].DB) {
+					RemoveDBFavourite.delete(poiFromFavs[0].FK_poi_name)
+				}
 				let i = $rootScope.userFavs.findIndex(x => x.FK_poi_name === poi.name);
 				if (i > -1) $rootScope.userFavs.splice(i, 1);
 			} else {
+				// liked
 				$rootScope.userFavs.push({
 					FK_username: $rootScope.loggedUser,
 					FK_poi_name: poi.name,

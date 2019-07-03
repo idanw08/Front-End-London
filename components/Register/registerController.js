@@ -78,7 +78,7 @@ angular.module('london_app')
 							self.elementarySchoolName = ''
 							self.favouriteColor = ''
 							self.childhoodBFF = ''
-							console.log('loggedin', $rootScope.isLoggedIn);							
+							// console.log('loggedin', $rootScope.isLoggedIn);							
 							$location.path('/login')
 						} else {
 							alert('Username already exist.')

@@ -8,7 +8,7 @@ angular.module('london_app')
 					.then(function (response) {
 						const data = response.data;
 						if (!data.token) {
-							console.log('here1 !!');
+							// console.log('here1 !!');
 							alert('username or password incorrect!');
 							return
 						}

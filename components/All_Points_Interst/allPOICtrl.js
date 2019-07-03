@@ -4,9 +4,8 @@ angular.module("london_app").controller("allPointsofInterstController", [
   "$http",
   "$location",
   "ModalService",
-  "tokenStorage",
-  "$httpParamSerializerJQLike",
-  function ($scope, $rootScope, $http, $location, ModalService, tokenStorage, $httpParamSerializerJQLike) {
+  "RemoveDBFavourite",
+  function ($scope, $rootScope, $http, $location, ModalService, RemoveDBFavourite) {
     let self = this;
 
     self.gotoFAV = function () {
@@ -18,21 +17,7 @@ angular.module("london_app").controller("allPointsofInterstController", [
       let targetPoi = $rootScope.userFavs.filter(value => value.FK_poi_name == POi.name)
       if (targetPoi.length > 0) {
         if (targetPoi[0].DB) {
-          const config = {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Authorization': `Bearer ${tokenStorage.getUserToken($rootScope.loggedUser)}`
-            }
-          }
-          $http.delete(`http://localhost:3000/user/poi/removeFavouritePOI/${$rootScope.loggedUser}/${targetPoi[0].FK_poi_name}`, config)
-            .then(
-              function (response) {
-                console.log('deleted successfuly')
-              },
-              function (error) {
-                console.log('Unsuccessful delete', error)
-              }
-            )
+          RemoveDBFavourite.delete(targetPoi[0].FK_poi_name)
         }
         let i = $rootScope.userFavs.findIndex(x => x.FK_poi_name === POi.name);
         if (i > -1) $rootScope.userFavs.splice(i, 1);

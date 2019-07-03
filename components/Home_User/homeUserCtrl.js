@@ -47,8 +47,8 @@ angular.module('london_app')
 								lclFavs.push(e) 
 							}
 						})
-						console.log('response.data', response.data);
-						console.log('lclFavs',lclFavs);
+						// console.log('response.data', response.data);
+						// console.log('lclFavs',lclFavs);
 						if (response.data.length === 0 && lclFavs.length == 0) {
 							console.log('0-0')
 							let cell = row.insertCell(0)
@@ -60,11 +60,10 @@ angular.module('london_app')
 							self.rcntPOI0 = lclFavs[0]
 							createTD(lclFavs[0], 0)
 						}
-						else if (response.data.length === 1 && lclFavs.length === 1) {
+						else if (response.data.length >= 1 && lclFavs.length === 1) {
 							console.log('1-1')
-							if (response.data[0]) {
-								
-							}
+							// console.log(response.data);
+							// console.log(response.data);
 							self.rcntPOI0 = response.data[0]
 							self.rcntPOI1 = lclFavs[0]
 							createTD(response.data[0], 0)
@@ -86,6 +85,7 @@ angular.module('london_app')
 						else {
 							console.log('* - >1')
 							let ans = local2RecentSaves(lclFavs)	
+							console.log('ans', ans);
 							self.rcntPOI0 = $rootScope.allPois.filter(p => p.name === ans[0].FK_poi_name)[0]
 							self.rcntPOI1 = $rootScope.allPois.filter(p => p.name === ans[1].FK_poi_name)[0]
 							// console.log('rcntPOI0', self.rcntPOI0);

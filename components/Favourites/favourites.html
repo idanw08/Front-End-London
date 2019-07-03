@@ -2,16 +2,20 @@
     .pointer {
         cursor: pointer;
     }
+
     .orderArrow {
         font-size: 250%;
         cursor: pointer;
     }
+
     table {
         border-collapse: none;
     }
+
     tr:hover {
         background-color: #ffffff86;
     }
+
     th,
     td {
         padding: 8px;
@@ -22,19 +26,22 @@
 <h1 class="text-uppercase text-center"
     style="margin: 30px;margin-bottom: 50px; height: 50px;font-family: Montserrat, sans-serif;font-size: 45px;font-weight: bold">
     your favorite places<img src="misc\rating.png" style="margin-bottom: 30px"></h1>
-    <p style="text-align: center; font-family: Montserrat, sans-serif;font-size: 22px;" ng-if="!favsCtrl.haveFavs">No favourites saved!</p>
-<div style="margin-left: 20%;">
-    <label style="font-family: Montserrat, sans-serif;font-size: 18px;margin-bottom: 0px;" ng-if="favsCtrl.haveFavs">Sort by:</label>
-    <select class="border rounded shadow-lg" style="margin-left: 10px;" id="sorter" ng-model="order" ng-if="favsCtrl.haveFavs">
+<p style="text-align: center; font-family: Montserrat, sans-serif;font-size: 22px;" ng-if="!favsCtrl.haveFavs">No
+    favourites saved!</p>
+<div id="divdiv" style="margin-left: 20%;">
+    <label style="font-family: Montserrat, sans-serif;font-size: 18px;margin-bottom: 0px;"
+        ng-if="favsCtrl.haveFavs">Sort by:</label>
+    <select class="border rounded shadow-lg" id="sorter" style="margin-left: 10px;" ng-model="favsCtrl.order" ng-if="favsCtrl.haveFavs">
         <option value="none" selected>All</option>
         <option disabled hidden style='display: none' value=''></option>
         <option value="poiRank">Rank</option>
         <option value="category">Category</option>
     </select>
     <br>
+    <div>{{favsCtrl.order}}</div>
     <button class="btn btn-primary border rounded shadow-lg"
         style="background-color: #1c63aa;font-family: Montserrat, sans-serif;font-size: 18px;margin-top: 20px; margin-right: 30px; margin-bottom: 35px;"
-        ng-if="favsCtrl.haveFavs" ng-click="favsCtrl.saveInDB()">Save Changes</button>
+        ng-if="favsCtrl.haveFavs" ng-click="favsCtrl.saveInDB()">Save Changes!</button>
     <br>
 
     <table style="margin-left: 3%">
@@ -43,7 +50,7 @@
             <th style="text-align:center; font-size: 24px;font-family: Montserrat, sans-serif;">Point of Interst</th>
             <th style="text-align:center; font-size: 24px;font-family: Montserrat, sans-serif;">Remove</th>
         </tr>
-        <tr ng-repeat="x in $root.userFavs | orderBy: order">
+        <tr ng-repeat="x in $root.userFavs | orderBy: favsCtrl.order">
             <!-- UP / DOWN ARROWS -->
             <td>
                 <div class="orderArrow" ng-click="favsCtrl.moveUp(x)"> &#9650 </div>

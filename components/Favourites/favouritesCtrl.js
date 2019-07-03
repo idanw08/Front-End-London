@@ -1,9 +1,9 @@
 angular.module('london_app')
-	.controller('favouritesController', ['$rootScope', '$http', '$location', '$httpParamSerializerJQLike', 'ModalService', 'tokenStorage', 'RemoveDBFavourite',
-		function ($rootScope, $http, $location, $httpParamSerializerJQLike, ModalService, tokenStorage, RemoveDBFavourite) {
+	.controller('favouritesController', ['$rootScope', '$scope', '$http', '$location', '$httpParamSerializerJQLike', 'ModalService', 'tokenStorage', 'RemoveDBFavourite',
+		function ($rootScope, $scope, $http, $location, $httpParamSerializerJQLike, ModalService, tokenStorage, RemoveDBFavourite) {
 			let self = this
 			self.haveFavs = ($rootScope.userFavs.length > 0)
-			
+			$scope.order
 			self.saveInFavLocalList = function (favPoi) {
 				if ($rootScope.userFavs.filter(value => value.name == favPoi.name).length > 0) {
 					let i = $rootScope.userFavs.findIndex(x => x.name === favPoi.name);
@@ -36,6 +36,7 @@ angular.module('london_app')
 				.then(
 					function(response) {
 						if(response.status === 200){
+							$rootScope.userFavs.forEach(e => e.DB = true)
 							alert('Saved in DB!')
 						} else {
 							alert('ERR_NOT_SAVED_IN_DB')
@@ -46,7 +47,7 @@ angular.module('london_app')
 
 			self.removeFrom_FavLocalList = function (favPoi) {
 				if (favPoi.DB) {
-					RemoveDBFavourite.delete(favPoi)
+					RemoveDBFavourite.delete(favPoi.FK_poi_name)
 				}
 				$rootScope.userFavs.splice($rootScope.userFavs.indexOf(favPoi), 1)
 			}
