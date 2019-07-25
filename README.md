@@ -1,4 +1,4 @@
-# londonApplication_client
+# London Application_client
 
 this is the client side of our london application for assignment 3.3 in 'Web development course'
 to run the application follow this steps:
